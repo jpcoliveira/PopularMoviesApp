@@ -14,7 +14,7 @@ public interface HomeView {
 
     void hideProgress();
 
-    void setMoveItem(List<MovieModel> movies);
+    void setMovieItem(List<MovieModel> movies);
 
-    void onItemClicked(int position);
+    void showMessageItemClicked(String msg);
 }

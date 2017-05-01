@@ -9,9 +9,10 @@ import java.util.List;
  */
 
 public interface HomeInteractor {
-    interface OnFinishedListener{
-        void onFinished(List<MovieModel>movies);
+
+    interface OnFinishedListener {
+        void onFinished(List<MovieModel> movies);
     }
 
-
+    void findMovies(OnFinishedListener listener);
 }
