@@ -22,19 +22,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         FragmentHome fragmentHome = new FragmentHome();
         FragmentManager fragmentManager = getFragmentManager();
-        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(android.R.id.content, fragmentHome);
-        fragmentTransaction.commit();
 
-//        ImageView img1 = (ImageView) findViewById(R.id.img_1);
-//        ImageView img2 = (ImageView) findViewById(R.id.img_2);
-//        ImageView img3 = (ImageView) findViewById(R.id.img_3);
-//        ImageView img4 = (ImageView) findViewById(R.id.img_4);
-//
-//        Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(img1);
-//        Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(img2);
-//        Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(img3);
-//        Picasso.with(this).load("http://i.imgur.com/DvpvklR.png").into(img4);
+        if (savedInstanceState == null) {
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(android.R.id.content, fragmentHome);
+            fragmentTransaction.commit();
+        }
     }
-
 }

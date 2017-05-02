@@ -30,6 +30,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         notifyDataSetChanged();
     }
 
+    public List<MovieModel> getMovies() {
+        return mMovies;
+    }
+
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.

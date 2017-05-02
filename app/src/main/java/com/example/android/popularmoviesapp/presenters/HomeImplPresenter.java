@@ -2,20 +2,23 @@ package com.example.android.popularmoviesapp.presenters;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
+import com.example.android.popularmoviesapp.util.Constants;
 
 import java.util.List;
 
 /**
  * Created by joliveira on 5/1/17.
  */
-
 public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinishedListener {
 
     private HomeView homeView;
@@ -28,7 +31,6 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
 
     @Override
     public void onResume() {
-
     }
 
     @Override
@@ -59,14 +61,23 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (homeView != null) {
             homeView.showProgress();
         }
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            List<MovieModel> movies = savedInstanceState.getParcelableArrayList(Constants.MOVIES);
+            homeInteractor.findMovies(this, movies);
+            Log.i("call service", "no");
+        } else {
             //first search by popular
             homeInteractor.findMovies(this, homeInteractor.getFilterMovies(R.id.action_order_popular_movies));
+            Log.i("call service", "yes");
         }
     }
 }

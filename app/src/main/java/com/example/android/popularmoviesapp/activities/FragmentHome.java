@@ -3,7 +3,6 @@ package com.example.android.popularmoviesapp.activities;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,9 @@ import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.presenters.HomeImplPresenter;
+import com.example.android.popularmoviesapp.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ import java.util.List;
  */
 
 public class FragmentHome extends Fragment implements HomeView {
+
 
     private HomePresenter homePresenter;
     private HomeInteractorImpl homeInteractor;
@@ -61,19 +63,21 @@ public class FragmentHome extends Fragment implements HomeView {
         recyclerView.setAdapter(adapter);
         progress = (ProgressBar) view.findViewById(R.id.progress);
 
+        homePresenter.onCreateView(inflater, container, savedInstanceState);
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        homePresenter.onViewCreated(view, savedInstanceState);
+//        homePresenter.onViewCreated(view, savedInstanceState);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        homePresenter.onResume();
+//        homePresenter.onResume();
     }
 
     @Override
@@ -126,7 +130,7 @@ public class FragmentHome extends Fragment implements HomeView {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        ArrayList<MovieModel> movies = (ArrayList<MovieModel>) adapter.getMovies();
+        outState.putParcelableArrayList(Constants.MOVIES, movies);
     }
-
-
 }
