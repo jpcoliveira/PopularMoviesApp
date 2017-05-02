@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.util.Constants;
+import com.example.android.popularmoviesapp.util.SizeImages;
 import com.example.android.popularmoviesapp.util.Util;
 
 import org.json.JSONArray;
@@ -49,7 +50,6 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         listener.onFinished(movieModels);
     }
 
-
     private List<MovieModel> findMovies(String filter) {
         Uri builder;
         String base = Constants.URL_BASE_MOVIES;
@@ -81,11 +81,15 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         return movies;
     }
 
-
     private List<MovieModel> strToJson(String strJson) {
 
         List<MovieModel> movies = new ArrayList<>();
         MovieModel movie;
+
+        ArrayList<String> paths = new ArrayList<>();
+        paths.add(Constants.URL_PATH_T_IMAGE);
+        paths.add(Constants.URL_PATH_P_IMAGE);
+        paths.add(SizeImages.w185.name());
 
         try {
             JSONObject jsonObjectMovies = new JSONObject(strJson);
@@ -97,20 +101,19 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
                 JSONObject item = arrayMovies.getJSONObject(i);
 
-                movie.setTitle(item.getString("title"));
-                movie.setThumbnail(item.getString("poster_path"));
+                String urlbaseThumbnail = Util.buildUri(Constants.URL_BASE_IMG, null, paths).toString();
+
+                movie.setTitle(item.getString("original_title"));
+                movie.setThumbnail(urlbaseThumbnail + item.getString("poster_path"));
                 movie.setSynopsis(item.getString("overview"));
                 movie.setRating(item.getDouble("vote_average"));
                 movie.setDate(item.getString("release_date"));
 
                 movies.add(movie);
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         return movies;
     }

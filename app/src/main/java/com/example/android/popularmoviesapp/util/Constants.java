@@ -6,6 +6,9 @@ package com.example.android.popularmoviesapp.util;
 
 public class Constants {
 
+    public static String POPULAR = "popular";
+    public static String TOP_RATED = "top_rated";
+
     public static String API_KEY = "api_key";
     public static String API_KEY_VALUE = "cb74f67f0a59368925489b002f16c127";
 

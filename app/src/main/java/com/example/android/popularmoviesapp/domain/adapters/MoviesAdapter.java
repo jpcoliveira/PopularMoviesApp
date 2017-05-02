@@ -1,17 +1,35 @@
-package com.example.android.popularmoviesapp.domain;
+package com.example.android.popularmoviesapp.domain.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.android.popularmoviesapp.R;
+import com.example.android.popularmoviesapp.model.MovieModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by joliveira on 5/1/17.
  */
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
+
+    List<MovieModel> mMovies;
+
+    public MoviesAdapter() {
+    }
+
+    public void setMovies(List<MovieModel> movies) {
+        mMovies = movies;
+        notifyDataSetChanged();
+    }
+
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
@@ -34,7 +52,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
      */
     @Override
     public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        MoviesAdapter.MoviesViewHolder viewHolder = null;
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item_list, parent, false);
+        viewHolder = new MoviesAdapter.MoviesViewHolder(layoutView);
+        return viewHolder;
     }
 
     /**
@@ -56,7 +77,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
      */
     @Override
     public void onBindViewHolder(MoviesViewHolder holder, int position) {
-
+        MovieModel movie = mMovies.get(position);
+        Picasso.with(holder.context).load(movie.getThumbnail()).into(holder.image);
     }
 
     /**
@@ -66,32 +88,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return mMovies.size();
     }
 
     public class MoviesViewHolder extends RecyclerView.ViewHolder {
 
-
-        /*public ImageView imageCircle;
-        public TextView categoria;
-        public TextView descricao;
-        public TextView valor;
-        public TextView nomeUsuario;
-        public TextView dataMov;
-        public TextView sincronizado;
-        public Preferences preference;*/
+        public ImageView image;
+        public Context context;
 
         public MoviesViewHolder(View itemView) {
             super(itemView);
-
-         /*   preference = new Preferences(itemView.getContext());
-            imageCircle = (ImageView) itemView.findViewById(R.id.imageViewItemExtrato);
-            categoria = (TextView) itemView.findViewById(R.id.lblItemExtratoCategoria);
-            descricao = (TextView) itemView.findViewById(R.id.lblItemExtratoDescricao);
-            valor = (TextView) itemView.findViewById(R.id.lblItemExtratoValor);
-            nomeUsuario = (TextView) itemView.findViewById(R.id.lblItemExtratoNomeUsuario);
-            dataMov = (TextView) itemView.findViewById(R.id.lblItemExtratoData);
-            sincronizado = (TextView) itemView.findViewById(R.id.lblSincronizado);*/
+            image = (ImageView) itemView.findViewById(R.id.img_item_movie);
+            context = itemView.getContext();
         }
     }
 }

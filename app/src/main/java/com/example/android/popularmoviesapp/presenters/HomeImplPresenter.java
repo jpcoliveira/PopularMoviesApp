@@ -1,5 +1,10 @@
 package com.example.android.popularmoviesapp.presenters;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+
+import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
@@ -24,10 +29,6 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
     @Override
     public void onResume() {
 
-        if (homeView != null) {
-            homeView.showProgress();
-        }
-        homeInteractor.findMovies(this);
     }
 
     @Override
@@ -47,6 +48,25 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
     public void onIntemClicked(int position) {
         if (homeView != null) {
             homeView.showMessageItemClicked("item clicado foi: " + position);
+        }
+    }
+
+    @Override
+    public void onItemMenuClicked(int menuItemId) {
+        homeInteractor.getFilterMovies(menuItemId);
+        homeInteractor.findMovies(this, homeInteractor.getFilterMovies(menuItemId));
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        if (homeView != null) {
+            homeView.showProgress();
+        }
+
+        if (savedInstanceState == null) {
+            //first search by popular
+            homeInteractor.findMovies(this, homeInteractor.getFilterMovies(R.id.action_order_popular_movies));
         }
     }
 }

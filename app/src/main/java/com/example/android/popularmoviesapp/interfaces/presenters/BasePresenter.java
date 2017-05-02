@@ -5,8 +5,7 @@ package com.example.android.popularmoviesapp.interfaces.presenters;
  */
 
 public interface BasePresenter {
-
     void onResume();
-    void onDestroy();
 
+    void onDestroy();
 }

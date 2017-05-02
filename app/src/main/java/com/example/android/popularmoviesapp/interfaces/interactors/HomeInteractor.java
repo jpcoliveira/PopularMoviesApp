@@ -14,5 +14,7 @@ public interface HomeInteractor {
         void onFinished(List<MovieModel> movies);
     }
 
-    void findMovies(OnFinishedListener listener);
+    void findMovies(OnFinishedListener listener, String filter);
+
+    String getFilterMovies(int menuItemId);
 }
