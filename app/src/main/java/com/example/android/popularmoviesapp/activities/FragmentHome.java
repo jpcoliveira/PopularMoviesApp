@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.adapters.MoviesAdapter;
 import com.example.android.popularmoviesapp.interactors.HomeInteractorImpl;
+import com.example.android.popularmoviesapp.interfaces.listeners.MoviesAdapterOnClickHandler;
 import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by joliveira on 4/28/17.
  */
 
-public class FragmentHome extends Fragment implements HomeView {
+public class FragmentHome extends Fragment implements HomeView, MoviesAdapterOnClickHandler {
 
     private HomePresenter homePresenter;
     private HomeInteractorImpl homeInteractor;
@@ -52,7 +53,7 @@ public class FragmentHome extends Fragment implements HomeView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        adapter = new MoviesAdapter();
+        adapter = new MoviesAdapter(this);
         homeInteractor = new HomeInteractorImpl();
         homePresenter = new HomeImplPresenter(this, homeInteractor);
         textViewErrorNoData = (TextView) view.findViewById(R.id.tv_msg_no_data);
@@ -140,4 +141,8 @@ public class FragmentHome extends Fragment implements HomeView {
     }
 
 
+    @Override
+    public void clickItemListener(MovieModel movie) {
+        Toast.makeText(getActivity(), movie.toString(), Toast.LENGTH_SHORT).show();
+    }
 }

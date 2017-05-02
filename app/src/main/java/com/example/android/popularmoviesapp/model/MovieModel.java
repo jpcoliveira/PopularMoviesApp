@@ -80,7 +80,13 @@ public class MovieModel implements Parcelable {
 
     @Override
     public String toString() {
-        return title;
+        return "MovieModel{" +
+                "title='" + title + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", synopsis='" + synopsis + '\'' +
+                ", rating=" + rating +
+                ", date='" + date + '\'' +
+                '}';
     }
 
     @Override

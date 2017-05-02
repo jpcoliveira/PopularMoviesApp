@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.android.popularmoviesapp.R;
+import com.example.android.popularmoviesapp.interfaces.listeners.MoviesAdapterOnClickHandler;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.squareup.picasso.Picasso;
 
@@ -21,8 +22,10 @@ import java.util.List;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
     List<MovieModel> mMovies;
+    private MoviesAdapterOnClickHandler mClickHandler;
 
-    public MoviesAdapter() {
+    public MoviesAdapter(MoviesAdapterOnClickHandler handler) {
+        mClickHandler = handler;
     }
 
     public void setMovies(List<MovieModel> movies) {
@@ -95,7 +98,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         return mMovies != null ? mMovies.size() : 0;
     }
 
-    public class MoviesViewHolder extends RecyclerView.ViewHolder {
+
+    public class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView image;
         public Context context;
@@ -104,6 +108,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.img_item_movie);
             context = itemView.getContext();
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getPosition();
+            mClickHandler.clickItemListener(mMovies.get(position));
         }
     }
 }
