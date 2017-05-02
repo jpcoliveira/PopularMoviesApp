@@ -1,5 +1,7 @@
 package com.example.android.popularmoviesapp.interactors;
 
+import android.content.Context;
+
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
@@ -14,8 +16,8 @@ import java.util.List;
 
 public class HomeInteractorImpl implements HomeInteractor {
     @Override
-    public void findMovies(OnFinishedListener listener, String filter) {
-        MoviesAsyncTask moviesAsyncTask = new MoviesAsyncTask(listener);
+    public void findMovies(OnFinishedListener listener, String filter, Context context) {
+        MoviesAsyncTask moviesAsyncTask = new MoviesAsyncTask(context, listener);
         moviesAsyncTask.execute(filter);
     }
 

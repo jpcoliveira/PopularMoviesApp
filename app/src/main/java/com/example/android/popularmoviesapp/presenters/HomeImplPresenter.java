@@ -56,7 +56,7 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
     @Override
     public void onItemMenuClicked(int menuItemId) {
         homeInteractor.getFilterMovies(menuItemId);
-        homeInteractor.findMovies(this, homeInteractor.getFilterMovies(menuItemId));
+        homeInteractor.findMovies(this, homeInteractor.getFilterMovies(menuItemId), homeView.getContextHomeView());
     }
 
     @Override
@@ -76,7 +76,7 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
             Log.i("call service", "no");
         } else {
             //first search by popular
-            homeInteractor.findMovies(this, homeInteractor.getFilterMovies(R.id.action_order_popular_movies));
+            homeInteractor.findMovies(this, homeInteractor.getFilterMovies(R.id.action_order_popular_movies), homeView.getContextHomeView());
             Log.i("call service", "yes");
         }
     }

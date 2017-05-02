@@ -1,5 +1,6 @@
 package com.example.android.popularmoviesapp.network;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -33,14 +34,22 @@ import java.util.Map;
 public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
     HomeInteractor.OnFinishedListener listener;
+    Context mContext;
 
-    public MoviesAsyncTask(HomeInteractor.OnFinishedListener listener) {
+    public MoviesAsyncTask(Context context, HomeInteractor.OnFinishedListener listener) {
         this.listener = listener;
+        this.mContext = context;
     }
 
     @Override
     protected List<MovieModel> doInBackground(String... strings) {
-        List<MovieModel> listMovies = findMovies(strings[0]);
+
+        List<MovieModel> listMovies = null;
+
+        if (Util.isOnline(mContext)) {
+            listMovies = findMovies(strings[0]);
+        }
+
         return listMovies;
     }
 

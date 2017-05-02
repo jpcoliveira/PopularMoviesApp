@@ -1,5 +1,7 @@
 package com.example.android.popularmoviesapp.interfaces.interactors;
 
+import android.content.Context;
+
 import com.example.android.popularmoviesapp.model.MovieModel;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public interface HomeInteractor {
         void onFinished(List<MovieModel> movies);
     }
 
-    void findMovies(OnFinishedListener listener, String filter);
+    void findMovies(OnFinishedListener listener, String filter, Context context);
 
     void findMovies(OnFinishedListener listener, List<MovieModel> movies);
 

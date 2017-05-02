@@ -1,5 +1,7 @@
 package com.example.android.popularmoviesapp.interfaces.views;
 
+import android.content.Context;
+
 import com.example.android.popularmoviesapp.model.MovieModel;
 
 import java.util.List;
@@ -17,4 +19,6 @@ public interface HomeView {
     void setMovieItem(List<MovieModel> movies);
 
     void showMessageItemClicked(String msg);
+
+    Context getContextHomeView();
 }

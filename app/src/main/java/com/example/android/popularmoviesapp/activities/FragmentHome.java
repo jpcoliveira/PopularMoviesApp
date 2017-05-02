@@ -1,6 +1,7 @@
 package com.example.android.popularmoviesapp.activities;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,7 +33,6 @@ import java.util.List;
  */
 
 public class FragmentHome extends Fragment implements HomeView {
-
 
     private HomePresenter homePresenter;
     private HomeInteractorImpl homeInteractor;
@@ -116,6 +116,11 @@ public class FragmentHome extends Fragment implements HomeView {
     }
 
     @Override
+    public Context getContextHomeView() {
+        return getActivity();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu, menu);
@@ -133,4 +138,6 @@ public class FragmentHome extends Fragment implements HomeView {
         ArrayList<MovieModel> movies = (ArrayList<MovieModel>) adapter.getMovies();
         outState.putParcelableArrayList(Constants.MOVIES, movies);
     }
+
+
 }
