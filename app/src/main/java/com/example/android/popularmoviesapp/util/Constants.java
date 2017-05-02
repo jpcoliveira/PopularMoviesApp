@@ -6,6 +6,7 @@ package com.example.android.popularmoviesapp.util;
 
 public class Constants {
 
+    public static final String MOVIE = "MOVIE";
     public static String POPULAR = "popular";
     public static String TOP_RATED = "top_rated";
     public static final String MOVIES = "MOVIES_STATE";

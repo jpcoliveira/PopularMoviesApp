@@ -109,9 +109,9 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
                 movie = new MovieModel();
 
                 JSONObject item = arrayMovies.getJSONObject(i);
-
                 String urlbaseThumbnail = Util.buildUri(Constants.URL_BASE_IMG, null, paths).toString();
 
+                movie.setId(item.getLong("id"));
                 movie.setTitle(item.getString("original_title"));
                 movie.setThumbnail(urlbaseThumbnail + item.getString("poster_path"));
                 movie.setSynopsis(item.getString("overview"));

@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class MovieModel implements Parcelable {
 
+    private long id;
     private String title;
     private String thumbnail;
     private String synopsis;
@@ -18,10 +19,10 @@ public class MovieModel implements Parcelable {
     private String date;
 
     public MovieModel() {
-
     }
 
-    public MovieModel(String title, String thumbnail, String synopsis, double rating, String date) {
+    public MovieModel(String title, String thumbnail, String synopsis, double rating, String date, long id) {
+        this.id = id;
         this.title = title;
         this.thumbnail = thumbnail;
         this.synopsis = synopsis;
@@ -30,6 +31,7 @@ public class MovieModel implements Parcelable {
     }
 
     public MovieModel(Parcel parcel) {
+        this.id = parcel.readLong();
         this.title = parcel.readString();
         this.thumbnail = parcel.readString();
         this.synopsis = parcel.readString();
@@ -37,6 +39,13 @@ public class MovieModel implements Parcelable {
         this.date = parcel.readString();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -81,7 +90,8 @@ public class MovieModel implements Parcelable {
     @Override
     public String toString() {
         return "MovieModel{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", synopsis='" + synopsis + '\'' +
                 ", rating=" + rating +
@@ -96,6 +106,7 @@ public class MovieModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
         parcel.writeString(title);
         parcel.writeString(thumbnail);
         parcel.writeString(synopsis);

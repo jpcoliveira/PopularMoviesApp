@@ -1,8 +1,14 @@
 package com.example.android.popularmoviesapp.activities;
 
+
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -143,6 +149,16 @@ public class FragmentHome extends Fragment implements HomeView, MoviesAdapterOnC
 
     @Override
     public void clickItemListener(MovieModel movie) {
-        Toast.makeText(getActivity(), movie.toString(), Toast.LENGTH_SHORT).show();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.MOVIE, movie);
+
+        FragmentDetail fragmentDetail = new FragmentDetail();
+        fragmentDetail.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, fragmentDetail);
+        fragmentTransaction.commit();
+
     }
 }
