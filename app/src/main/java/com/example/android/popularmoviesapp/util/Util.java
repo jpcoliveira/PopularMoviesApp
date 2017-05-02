@@ -40,11 +40,11 @@ public class Util {
     /**
      * build Uri.toString() -> URL
      **/
-    public static Uri buildUri(String base, HashMap<String, String> parameter, String... paths) {
+    public static Uri buildUri(String base, HashMap<String, String> parameter, ArrayList<String> paths) {
         Uri.Builder builder = Uri.parse(base)
                 .buildUpon();
 
-        if (paths != null && paths.length > 0) {
+        if (paths != null && paths.size() > 0) {
             for (String path : paths) {
                 builder.appendPath(path);
             }

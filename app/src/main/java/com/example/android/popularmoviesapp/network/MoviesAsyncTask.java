@@ -39,7 +39,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
     @Override
     protected List<MovieModel> doInBackground(String... strings) {
-        List<MovieModel> listMovies = findMovies("popular");
+        List<MovieModel> listMovies = findMovies(strings[0]);
         return listMovies;
     }
 
@@ -54,15 +54,15 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         Uri builder;
         String base = Constants.URL_BASE_MOVIES;
         HashMap<String, String> parameters = new HashMap<>();
-        String[] paths = new String[0];
-        paths[0] = Constants.URL_PATH_3_MOVIES;
-        paths[1] = Constants.URL_PATH_MOVIE_MOVIES;
+        ArrayList<String> paths = new ArrayList<>();
+        paths.add(Constants.URL_PATH_3_MOVIES);
+        paths.add(Constants.URL_PATH_MOVIE_MOVIES);
         parameters.put(Constants.API_KEY, Constants.API_KEY_VALUE);
 
         if (filter.equals("popular")) {
-            paths[2] = Constants.URL_PATH_POPULAR_MOVIES;
+            paths.add(Constants.URL_PATH_POPULAR_MOVIES);
         } else {
-            paths[2] = Constants.URL_PATH_TOP_RATED_MOVIES;
+            paths.add(Constants.URL_PATH_TOP_RATED_MOVIES);
         }
 
         builder = Util.buildUri(base, parameters, paths);
@@ -83,6 +83,35 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
 
     private List<MovieModel> strToJson(String strJson) {
-        return null;
+
+        List<MovieModel> movies = new ArrayList<>();
+        MovieModel movie;
+
+        try {
+            JSONObject jsonObjectMovies = new JSONObject(strJson);
+            JSONArray arrayMovies = jsonObjectMovies.getJSONArray("results");
+
+            for (int i = 0; i < arrayMovies.length(); i++) {
+
+                movie = new MovieModel();
+
+                JSONObject item = arrayMovies.getJSONObject(i);
+
+                movie.setTitle(item.getString("title"));
+                movie.setThumbnail(item.getString("poster_path"));
+                movie.setSynopsis(item.getString("overview"));
+                movie.setRating(item.getDouble("vote_average"));
+                movie.setDate(item.getString("release_date"));
+
+                movies.add(movie);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return movies;
     }
 }
