@@ -3,7 +3,9 @@ package com.example.android.popularmoviesapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by joliveira on 4/28/17.
@@ -17,17 +19,21 @@ public class MovieModel implements Parcelable {
     private String synopsis;
     private double rating;
     private String date;
+    private List<TrailerModel> trailers;
+    private List<ReviewModel> reviews;
 
     public MovieModel() {
     }
 
-    public MovieModel(String title, String thumbnail, String synopsis, double rating, String date, long id) {
+    public MovieModel(long id, String title, String thumbnail, String synopsis, double rating, String date, List<TrailerModel> trailers, List<ReviewModel> reviews) {
         this.id = id;
         this.title = title;
         this.thumbnail = thumbnail;
         this.synopsis = synopsis;
         this.rating = rating;
         this.date = date;
+        this.trailers = trailers;
+        this.reviews = reviews;
     }
 
     public MovieModel(Parcel parcel) {
@@ -37,6 +43,26 @@ public class MovieModel implements Parcelable {
         this.synopsis = parcel.readString();
         this.rating = parcel.readDouble();
         this.date = parcel.readString();
+        this.trailers = new ArrayList<TrailerModel>();
+        parcel.readList(this.trailers, TrailerModel.class.getClassLoader());
+        this.reviews = new ArrayList<ReviewModel>();
+        parcel.readList(this.reviews, ReviewModel.class.getClassLoader());
+    }
+
+    public List<ReviewModel> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewModel> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<TrailerModel> getTrailers() {
+        return trailers;
+    }
+
+    public void setTrailers(List<TrailerModel> trailers) {
+        this.trailers = trailers;
     }
 
     public long getId() {
@@ -96,6 +122,8 @@ public class MovieModel implements Parcelable {
                 ", synopsis='" + synopsis + '\'' +
                 ", rating=" + rating +
                 ", date='" + date + '\'' +
+                ", trailers=" + trailers +
+                ", reviews=" + reviews +
                 '}';
     }
 
@@ -112,6 +140,8 @@ public class MovieModel implements Parcelable {
         parcel.writeString(synopsis);
         parcel.writeString(date);
         parcel.writeDouble(rating);
+        parcel.writeList(trailers);
+        parcel.writeList(reviews);
     }
 
     public static final Parcelable.Creator<MovieModel> CREATOR = new Creator<MovieModel>() {

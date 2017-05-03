@@ -5,10 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +26,7 @@ import com.example.android.popularmoviesapp.interfaces.listeners.MoviesAdapterOn
 import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
-import com.example.android.popularmoviesapp.presenters.HomeImplPresenter;
+import com.example.android.popularmoviesapp.presenters.HomePresenterImpl;
 import com.example.android.popularmoviesapp.util.Constants;
 
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ public class FragmentHome extends Fragment implements HomeView, MoviesAdapterOnC
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         adapter = new MoviesAdapter(this);
         homeInteractor = new HomeInteractorImpl();
-        homePresenter = new HomeImplPresenter(this, homeInteractor);
+        homePresenter = new HomePresenterImpl(this, homeInteractor);
         textViewErrorNoData = (TextView) view.findViewById(R.id.tv_msg_no_data);
         RecyclerView.LayoutManager manager = new GridLayoutManager(view.getContext(), 2);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_movies);
@@ -70,7 +67,7 @@ public class FragmentHome extends Fragment implements HomeView, MoviesAdapterOnC
         recyclerView.setAdapter(adapter);
         progress = (ProgressBar) view.findViewById(R.id.progress);
 
-        homePresenter.onCreateView(inflater, container, savedInstanceState);
+        homePresenter.onCreateView(savedInstanceState, null);
 
         return view;
     }

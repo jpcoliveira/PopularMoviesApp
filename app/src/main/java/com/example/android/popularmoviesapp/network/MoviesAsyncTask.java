@@ -3,7 +3,6 @@ package com.example.android.popularmoviesapp.network;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
@@ -15,17 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by joliveira on 5/1/17.
@@ -81,7 +74,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         List<MovieModel> movies = null;
         try {
             url = new URL(builder.toString());
-            strJson = Util.getJsonResponseRestfulService(url);
+            strJson = Util.callServiceByURL(url, Constants.METHOD_GET);
             movies = strToJson(strJson);
         } catch (MalformedURLException e) {
             e.printStackTrace();

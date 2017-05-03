@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.android.popularmoviesapp.model.MovieModel;
 
@@ -46,7 +47,7 @@ public class Util {
 
         if (paths != null && paths.size() > 0) {
             for (String path : paths) {
-                builder.appendPath(path);
+                builder.appendEncodedPath(path);
             }
         }
 
@@ -61,7 +62,7 @@ public class Util {
     /**
      * get string json response of call service
      **/
-    public static String getJsonResponseRestfulService(URL url) {
+    public static String callServiceByURL(URL url, String method) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
@@ -70,7 +71,7 @@ public class Util {
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(method);
             urlConnection.connect();
 
             // Read the input stream into a String
@@ -106,7 +107,7 @@ public class Util {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-//                        Log.e("PlaceholderFragment", "Error closing stream", e);
+                    Log.e("PlaceholderFragment", "Error closing stream", e);
                 }
             }
         }

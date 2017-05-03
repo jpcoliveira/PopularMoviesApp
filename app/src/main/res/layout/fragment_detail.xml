@@ -4,138 +4,191 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/progress_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00897B">
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
-            android:text="Chappie"
-            android:textColor="#FFFFFF"
-            android:textSize="42sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <ScrollView
+    <TextView
+        android:id="@+id/error_no_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:text="@string/error_no_data"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
 
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:layout_margin="20dp"
+                android:text="Chappie"
+                android:textColor="@color/colorWhite"
+                android:textSize="42sp"
+                android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1">
+        </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/img_movie_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/ic_launcher" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_year"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="2015"
-                        android:textSize="26sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="200 min"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_average"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="8.1/10" />
-
-                    <ImageButton
-                        android:id="@+id/btn_favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:src="@drawable/ic_star_rate_white_18dp"
-                        android:background="@color/colorAccent"
-                        android:text="Favorito" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Overview"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:text="fkldfdskfhdksjhfjkdfsdfsfdsfsdfdsfsdfdsfsdfsdfdsfdfsdhfh\njhdksdhfjksdhsdfsdfsdfsdfdsfsdffkjhsdjkfhjksdh\njkhdjkahsdjkhsakdhaksjhdkashdhasjkhdkashdkashkdhashdahk" />
-
-            </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Trailers"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycle_trailers"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/img_movie_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/ic_launcher" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2015"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="200 min"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_average"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="8.1/10" />
+
+                        <Button
+                            android:id="@+id/btn_favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:background="@color/colorAccent"
+                            android:text="@string/favorite" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/overview"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="fkldfdskfhdksjhfjkdfsdfsfdsfsdfdsfsdfdsfsdfsdfdsfdfsdhfh\njhdksdhfjksdhsdfsdfsdfsdfdsfsdffkjhsdjkfhjksdh\njkhdjkahsdjkhsakdhaksjhdkashdhasjkhdkashdkashkdhashdahk" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorBlack" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reviews"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle_reviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorBlack" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trailers"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle_trailers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

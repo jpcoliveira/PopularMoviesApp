@@ -13,5 +13,5 @@ import android.view.ViewGroup;
 public interface BaseFragmentPresenter {
     void onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
-    void onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+    void onCreateView(@Nullable Bundle savedInstanceState, Bundle arguments);
 }

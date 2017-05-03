@@ -19,12 +19,12 @@ import java.util.List;
 /**
  * Created by joliveira on 5/1/17.
  */
-public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinishedListener {
+public class HomePresenterImpl implements HomePresenter, HomeInteractor.OnFinishedListener {
 
     private HomeView homeView;
     private HomeInteractor homeInteractor;
 
-    public HomeImplPresenter(HomeView homeView, HomeInteractor homeInteractor) {
+    public HomePresenterImpl(HomeView homeView, HomeInteractor homeInteractor) {
         this.homeView = homeView;
         this.homeInteractor = homeInteractor;
     }
@@ -64,8 +64,7 @@ public class HomeImplPresenter implements HomePresenter, HomeInteractor.OnFinish
     }
 
     @Override
-    public void onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public void onCreateView(@Nullable Bundle savedInstanceState, Bundle arguments) {
         if (homeView != null) {
             homeView.showProgress();
         }
