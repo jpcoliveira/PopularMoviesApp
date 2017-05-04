@@ -27,7 +27,7 @@ import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.presenters.HomePresenterImpl;
-import com.example.android.popularmoviesapp.util.Constants;
+import com.example.android.popularmoviesapp.domain.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

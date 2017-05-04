@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.android.popularmoviesapp.interfaces.interactors.DetailInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
-import com.example.android.popularmoviesapp.network.MovieDetailAsyncTask;
+import com.example.android.popularmoviesapp.domain.network.MovieDetailAsyncTask;
 
 /**
  * Created by joliveira on 5/3/17.

@@ -1,4 +1,4 @@
-package com.example.android.popularmoviesapp.network;
+package com.example.android.popularmoviesapp.domain.network;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,8 +8,8 @@ import com.example.android.popularmoviesapp.interfaces.interactors.DetailInterac
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.model.ReviewModel;
 import com.example.android.popularmoviesapp.model.TrailerModel;
-import com.example.android.popularmoviesapp.util.Constants;
-import com.example.android.popularmoviesapp.util.Util;
+import com.example.android.popularmoviesapp.domain.util.Constants;
+import com.example.android.popularmoviesapp.domain.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;

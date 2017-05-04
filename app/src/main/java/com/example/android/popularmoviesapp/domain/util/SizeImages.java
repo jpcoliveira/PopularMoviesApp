@@ -1,4 +1,4 @@
-package com.example.android.popularmoviesapp.util;
+package com.example.android.popularmoviesapp.domain.util;
 
 /**
  * Created by joliveira on 5/1/17.

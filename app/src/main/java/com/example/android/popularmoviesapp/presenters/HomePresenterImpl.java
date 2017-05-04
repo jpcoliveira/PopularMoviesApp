@@ -3,16 +3,14 @@ package com.example.android.popularmoviesapp.presenters;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.interfaces.presenters.HomePresenter;
 import com.example.android.popularmoviesapp.interfaces.views.HomeView;
 import com.example.android.popularmoviesapp.model.MovieModel;
-import com.example.android.popularmoviesapp.util.Constants;
+import com.example.android.popularmoviesapp.domain.util.Constants;
 
 import java.util.List;
 

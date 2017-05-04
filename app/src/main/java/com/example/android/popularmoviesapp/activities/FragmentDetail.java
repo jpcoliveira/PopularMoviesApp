@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -71,15 +72,20 @@ public class FragmentDetail extends Fragment implements DetailView, TrailerAdapt
         progress = (ProgressBar) view.findViewById(R.id.progress_detail);
         textViewErrorNoData = (TextView) view.findViewById(R.id.error_no_data);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        recyclerViewTrailer = (RecyclerView) view.findViewById(R.id.recycle_trailers);
-        recyclerViewTrailer.setLayoutManager(layoutManager);
-        recyclerViewTrailer.setAdapter(adapter);
 
-        recyclerViewReviews = (RecyclerView) view.findViewById(R.id.recycle_trailers/*R.id.recycle_reviews*/);
-        recyclerViewTrailer.setLayoutManager(layoutManager);
-        recyclerViewTrailer.setAdapter(adapter);
+//        recyclerViewTrailer = (RecyclerView) view.findViewById(R.id.recycle_trailers);
+//        recyclerViewTrailer.setLayoutManager(layoutManager);
+//        recyclerViewTrailer.setAdapter(adapter);
+
+        recyclerViewReviews = (RecyclerView) view.findViewById(R.id.recycle_reviews/*R.id.recycle_reviews*/);
+        recyclerViewReviews.setLayoutManager(layoutManager);
+        recyclerViewReviews.setAdapter(adapter);
+
+//        recyclerViewTrailer.setHasFixedSize(true);
+        recyclerViewReviews.setHasFixedSize(true);
 
         btnFavorite = (Button) view.findViewById(R.id.btn_favorite);
         tvTitle = (TextView) view.findViewById(R.id.tv_title);
@@ -89,38 +95,34 @@ public class FragmentDetail extends Fragment implements DetailView, TrailerAdapt
         tvOverview = (TextView) view.findViewById(R.id.tv_overview);
         image = (ImageView) view.findViewById(R.id.img_movie_detail);
 
+
         presenter.onCreateView(savedInstanceState, getArguments());
+
 
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void showProgress() {
-        progress.setVisibility(View.VISIBLE);
+//        progress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        progress.setVisibility(View.GONE);
+//        progress.setVisibility(View.GONE);
     }
 
     @Override
     public void setItemDetail(MovieModel movieModel) {
         if (movieModel != null) {
-            ///// TODO: 5/3/17 preenche elementos da tela
-//            Toast.makeText(getActivity(), movieModel.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), movieModel.toString(), Toast.LENGTH_LONG).show();
             adapter.setAdapter(movieModel.getTrailers());
             tvTitle.setText(movieModel.getTitle());
             tvYear.setText(movieModel.getDate());
             tvTime.setText("50 min");
             tvAverage.setText(Double.toString(movieModel.getRating()));
             tvOverview.setText(movieModel.getSynopsis());
-//            image.setImageResource();
+            Picasso.with(getActivity()).load(movieModel.getThumbnail()).into(image);
         }
     }
 

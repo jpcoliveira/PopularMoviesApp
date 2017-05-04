@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
-import com.example.android.popularmoviesapp.network.MoviesAsyncTask;
-import com.example.android.popularmoviesapp.util.Constants;
+import com.example.android.popularmoviesapp.domain.network.MoviesAsyncTask;
+import com.example.android.popularmoviesapp.domain.util.Constants;
 
 import java.util.List;
 
