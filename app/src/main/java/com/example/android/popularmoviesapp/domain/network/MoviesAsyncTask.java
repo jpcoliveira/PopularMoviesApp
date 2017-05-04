@@ -97,21 +97,27 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
             JSONObject jsonObjectMovies = new JSONObject(strJson);
             JSONArray arrayMovies = jsonObjectMovies.getJSONArray("results");
 
-            for (int i = 0; i < arrayMovies.length(); i++) {
+            if (arrayMovies != null) {
 
-                movie = new MovieModel();
+                for (int i = 0; i < arrayMovies.length(); i++) {
 
-                JSONObject item = arrayMovies.getJSONObject(i);
-                String urlbaseThumbnail = Util.buildUri(Constants.URL_BASE_IMG, null, paths).toString();
+                    movie = new MovieModel();
 
-                movie.setId(item.getLong("id"));
-                movie.setTitle(item.getString("original_title"));
-                movie.setThumbnail(urlbaseThumbnail + item.getString("poster_path"));
-                movie.setSynopsis(item.getString("overview"));
-                movie.setRating(item.getDouble("vote_average"));
-                movie.setDate(item.getString("release_date"));
+                    JSONObject item = arrayMovies.getJSONObject(i);
 
-                movies.add(movie);
+                    if (item != null) {
+                        String urlbaseThumbnail = Util.buildUri(Constants.URL_BASE_IMG, null, paths).toString();
+
+                        movie.setId(item.getLong("id"));
+                        movie.setTitle(item.getString("original_title"));
+                        movie.setThumbnail(urlbaseThumbnail + item.getString("poster_path"));
+                        movie.setSynopsis(item.getString("overview"));
+                        movie.setRating(item.getString("vote_average"));
+                        movie.setDateRelease(item.getString("release_date"));
+
+                        movies.add(movie);
+                    }
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

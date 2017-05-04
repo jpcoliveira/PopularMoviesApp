@@ -41,16 +41,27 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
 
     @Override
     public void onCreateView(@Nullable Bundle savedInstanceState, Bundle arguments) {
-        MovieModel movie = arguments.getParcelable(Constants.MOVIE);
 
-        if (movie != null)
+    }
+
+    @Override
+    public void onCreate(MovieModel movie) {
+        if (movie != null) {
+
+            if (detailView != null) {
+                detailView.showProgress();
+            }
+
             interactor.findDetailMovie(this, movie);
+        }
     }
 
     @Override
     public void onFinished(MovieModel movies) {
         if (detailView != null) {
             detailView.setItemDetail(movies);
+            detailView.hideProgress();
         }
+
     }
 }

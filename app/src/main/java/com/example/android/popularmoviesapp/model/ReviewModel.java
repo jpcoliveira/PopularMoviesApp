@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class ReviewModel implements Parcelable {
 
-    private long id;
+    private String id;
     private String author;
     private String content;
     private String url;
@@ -18,7 +18,7 @@ public class ReviewModel implements Parcelable {
 
     }
 
-    public ReviewModel(long id, String author, String content, String url) {
+    public ReviewModel(String id, String author, String content, String url) {
         this.id = id;
         this.author = author;
         this.content = content;
@@ -26,17 +26,17 @@ public class ReviewModel implements Parcelable {
     }
 
     public ReviewModel(Parcel parcel) {
-        this.id = parcel.readLong();
+        this.id = parcel.readString();
         this.author = parcel.readString();
         this.content = parcel.readString();
         this.url = parcel.readString();
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -65,13 +65,23 @@ public class ReviewModel implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "ReviewModel{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
+        parcel.writeString(id);
         parcel.writeString(author);
         parcel.writeString(content);
         parcel.writeString(url);

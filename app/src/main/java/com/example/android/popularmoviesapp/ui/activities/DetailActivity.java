@@ -1,0 +1,166 @@
+package com.example.android.popularmoviesapp.ui.activities;
+
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.android.popularmoviesapp.R;
+import com.example.android.popularmoviesapp.domain.adapters.ReviewAdapter;
+import com.example.android.popularmoviesapp.domain.adapters.TrailerAdapter;
+import com.example.android.popularmoviesapp.domain.util.Constants;
+import com.example.android.popularmoviesapp.interactors.DetailInteractorImpl;
+import com.example.android.popularmoviesapp.interfaces.listeners.ReviewAdapterOnClickListener;
+import com.example.android.popularmoviesapp.interfaces.listeners.TrailerAdapterOnClickListener;
+import com.example.android.popularmoviesapp.interfaces.presenters.DetailPresenter;
+import com.example.android.popularmoviesapp.interfaces.views.DetailView;
+import com.example.android.popularmoviesapp.model.MovieModel;
+import com.example.android.popularmoviesapp.model.ReviewModel;
+import com.example.android.popularmoviesapp.model.TrailerModel;
+import com.example.android.popularmoviesapp.presenters.DetailPresenterImpl;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+/**
+ * Created by joliveira on 4/28/17.
+ */
+
+public class DetailActivity extends AppCompatActivity /*Fragment*/ implements DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener {
+
+    private DetailPresenter presenter;
+    private DetailInteractorImpl interactor;
+    private ProgressBar progress;
+    private TextView textViewErrorNoData;
+    private RecyclerView recyclerViewTrailer;
+    private RecyclerView recyclerViewReviews;
+    private TrailerAdapter trailerAdapter;
+    private ReviewAdapter reviewAdapter;
+
+    private Button btnFavorite;
+    private TextView tvTitle;
+    private TextView tvYear;
+    private TextView tvTime;
+    private TextView tvAverage;
+    private TextView tvOverview;
+    private ImageView image;
+    private LinearLayout container;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+
+        trailerAdapter = new TrailerAdapter(this);
+        trailerAdapter.setAdapter(new ArrayList<TrailerModel>());
+
+        reviewAdapter = new ReviewAdapter(this);
+        reviewAdapter.setAdapter(new ArrayList<ReviewModel>());
+
+        interactor = new DetailInteractorImpl(this);
+        presenter = new DetailPresenterImpl(this, interactor);
+
+        container = (LinearLayout) findViewById(R.id.detail_container);
+        progress = (ProgressBar) findViewById(R.id.progress_detail);
+        textViewErrorNoData = (TextView) findViewById(R.id.error_no_data);
+
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
+        layoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
+        layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+
+        recyclerViewTrailer = (RecyclerView) findViewById(R.id.recycle_trailers);
+        recyclerViewTrailer.setLayoutManager(layoutManager1);
+        recyclerViewTrailer.setAdapter(trailerAdapter);
+
+        recyclerViewReviews = (RecyclerView) findViewById(R.id.recycle_reviews);
+        recyclerViewReviews.setLayoutManager(layoutManager2);
+        recyclerViewReviews.setAdapter(reviewAdapter);
+
+        recyclerViewTrailer.setHasFixedSize(true);
+        recyclerViewReviews.setHasFixedSize(true);
+
+        btnFavorite = (Button) findViewById(R.id.btn_favorite);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvYear = (TextView) findViewById(R.id.tv_year);
+        tvTime = (TextView) findViewById(R.id.tv_time);
+        tvAverage = (TextView) findViewById(R.id.tv_average);
+        tvOverview = (TextView) findViewById(R.id.tv_overview);
+        image = (ImageView) findViewById(R.id.img_movie_detail);
+
+        Bundle bundle = getIntent().getExtras();
+
+        MovieModel movie = bundle.getParcelable(Constants.MOVIE);
+
+        presenter.onCreate(movie);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void showProgress() {
+        progress.setVisibility(View.VISIBLE);
+        container.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progress.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setItemDetail(MovieModel movieModel) {
+        if (movieModel != null) {
+            textViewErrorNoData.setVisibility(View.GONE);
+
+            trailerAdapter.setAdapter(movieModel.getTrailers());
+            reviewAdapter.setAdapter(movieModel.getReviews());
+
+            if (!movieModel.getTitle().isEmpty())
+                tvTitle.setText(movieModel.getTitle());
+
+            if (!movieModel.getDateRelease().isEmpty())
+                tvYear.setText(movieModel.getDateRelease());
+
+//            if (movieModel.getTrailers().isEmpty())
+            tvTime.setText("50 min");
+
+            if (!movieModel.getRating().isEmpty())
+                tvAverage.setText(movieModel.getRating());
+
+            if (!movieModel.getSynopsis().isEmpty())
+                tvOverview.setText(movieModel.getSynopsis());
+
+            if (!movieModel.getThumbnail().isEmpty())
+                Picasso.with(this).load(movieModel.getThumbnail()).into(image);
+        } else {
+            textViewErrorNoData.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onClickListener(TrailerModel trailer) {
+        Toast.makeText(this, trailer.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClickListener(ReviewModel review) {
+        Toast.makeText(this, review.toString(), Toast.LENGTH_LONG).show();
+    }
+}

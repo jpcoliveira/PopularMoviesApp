@@ -110,19 +110,27 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         List<ReviewModel> reviews = new ArrayList<>();
 
         try {
-            JSONObject jsonObjectMovies = new JSONObject(strJson);
-            JSONArray arrayMovies = jsonObjectMovies.getJSONArray("results");
+            JSONObject jsonObjectReviews = new JSONObject(strJson);
+            JSONArray arrayReviews = jsonObjectReviews.getJSONArray("results");
 
-            for (int i = 0; i < arrayMovies.length(); i++) {
+            if (arrayReviews != null) {
 
-                review = new ReviewModel();
+                int size = arrayReviews.length();
 
-                JSONObject item = arrayMovies.getJSONObject(i);
-                review.setId(item.getLong("id"));
-                review.setAuthor(item.getString("author"));
-                review.setContent(item.getString("content"));
-                review.setUrl(item.getString("url"));
-                reviews.add(review);
+                for (int i = 0; i < size; i++) {
+
+                    review = new ReviewModel();
+
+                    JSONObject item = arrayReviews.getJSONObject(i);
+
+                    if (item != null) {
+                        review.setId(item.getString("id"));
+                        review.setAuthor(item.getString("author"));
+                        review.setContent(item.getString("content"));
+                        review.setUrl(item.getString("url"));
+                        reviews.add(review);
+                    }
+                }
             }
 
         } catch (JSONException e) {
@@ -138,19 +146,25 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         List<TrailerModel> trailers = new ArrayList<>();
 
         try {
-            JSONObject jsonObjectMovies = new JSONObject(strJson);
-            JSONArray arrayMovies = jsonObjectMovies.getJSONArray("results");
+            JSONObject jsonObjectTrailer = new JSONObject(strJson);
+            JSONArray arrayTrailers = jsonObjectTrailer.getJSONArray("results");
 
-            for (int i = 0; i < arrayMovies.length(); i++) {
+            if (arrayTrailers != null) {
 
-                trailer = new TrailerModel();
+                for (int i = 0; i < arrayTrailers.length(); i++) {
 
-                JSONObject item = arrayMovies.getJSONObject(i);
-                trailer.setId(item.getString("id"));
-                trailer.setKey(item.getString("key"));
-                trailer.setName(item.getString("name"));
-                trailer.setSite(item.getString("site"));
-                trailers.add(trailer);
+                    trailer = new TrailerModel();
+
+                    JSONObject item = arrayTrailers.getJSONObject(i);
+
+                    if (item != null) {
+                        trailer.setId(item.getString("id"));
+                        trailer.setKey(item.getString("key"));
+                        trailer.setName(item.getString("name"));
+                        trailer.setSite(item.getString("site"));
+                        trailers.add(trailer);
+                    }
+                }
             }
 
         } catch (JSONException e) {

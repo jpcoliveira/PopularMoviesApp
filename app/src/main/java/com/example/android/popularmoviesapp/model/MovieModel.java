@@ -1,5 +1,6 @@
 package com.example.android.popularmoviesapp.model;
 
+import android.content.ClipData;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,36 +18,58 @@ public class MovieModel implements Parcelable {
     private String title;
     private String thumbnail;
     private String synopsis;
-    private double rating;
-    private String date;
+    private String rating;
+    private String dateRelease;
     private List<TrailerModel> trailers;
     private List<ReviewModel> reviews;
+
 
     public MovieModel() {
     }
 
-    public MovieModel(long id, String title, String thumbnail, String synopsis, double rating, String date, List<TrailerModel> trailers, List<ReviewModel> reviews) {
+    public MovieModel(long id, String title, String thumbnail, String synopsis, String rating, String dateRelease, List<TrailerModel> trailers, List<ReviewModel> reviews) {
         this.id = id;
         this.title = title;
         this.thumbnail = thumbnail;
         this.synopsis = synopsis;
         this.rating = rating;
-        this.date = date;
+        this.dateRelease = dateRelease;
         this.trailers = trailers;
         this.reviews = reviews;
     }
 
     public MovieModel(Parcel parcel) {
-        this.id = parcel.readLong();
-        this.title = parcel.readString();
-        this.thumbnail = parcel.readString();
-        this.synopsis = parcel.readString();
-        this.rating = parcel.readDouble();
-        this.date = parcel.readString();
-        this.trailers = new ArrayList<TrailerModel>();
-        parcel.readList(this.trailers, TrailerModel.class.getClassLoader());
-        this.reviews = new ArrayList<ReviewModel>();
-        parcel.readList(this.reviews, ReviewModel.class.getClassLoader());
+        id = parcel.readLong();
+        title = parcel.readString();
+        thumbnail = parcel.readString();
+        synopsis = parcel.readString();
+        rating = parcel.readString();
+        dateRelease = parcel.readString();
+
+        if (trailers == null)
+            trailers = new ArrayList<TrailerModel>();
+        parcel.readTypedList(trailers, TrailerModel.CREATOR);
+
+        if (reviews == null)
+            reviews = new ArrayList<ReviewModel>();
+        parcel.readTypedList(reviews, ReviewModel.CREATOR);
+
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getDateRelease() {
+        return dateRelease;
+    }
+
+    public void setDateRelease(String dateRelease) {
+        this.dateRelease = dateRelease;
     }
 
     public List<ReviewModel> getReviews() {
@@ -97,21 +120,6 @@ public class MovieModel implements Parcelable {
         this.synopsis = synopsis;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     @Override
     public String toString() {
@@ -121,9 +129,9 @@ public class MovieModel implements Parcelable {
                 ", thumbnail='" + thumbnail + '\'' +
                 ", synopsis='" + synopsis + '\'' +
                 ", rating=" + rating +
-                ", date='" + date + '\'' +
-                ", trailers=" + trailers +
-                ", reviews=" + reviews +
+//                ", date='" + date + '\'' +
+//                ", trailers=" + trailers +
+//                ", reviews=" + reviews +
                 '}';
     }
 
@@ -138,10 +146,10 @@ public class MovieModel implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(thumbnail);
         parcel.writeString(synopsis);
-        parcel.writeString(date);
-        parcel.writeDouble(rating);
-        parcel.writeList(trailers);
-        parcel.writeList(reviews);
+        parcel.writeString(dateRelease);
+        parcel.writeString(rating);
+        parcel.writeTypedList(trailers);
+        parcel.writeTypedList(reviews);
     }
 
     public static final Parcelable.Creator<MovieModel> CREATOR = new Creator<MovieModel>() {

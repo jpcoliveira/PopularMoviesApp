@@ -77,4 +77,9 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.OnFinish
             Log.i("call service", "yes");
         }
     }
+
+    @Override
+    public void onCreate(MovieModel movie) {
+
+    }
 }
