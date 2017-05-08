@@ -135,7 +135,11 @@ public class MainActivity extends AppCompatActivity/*Fragment*/ implements HomeV
     @Override
     public void clickItemListener(MovieModel movie) {
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(Constants.MOVIE, movie);
+        Bundle bundle= new Bundle();
+
+        bundle.putParcelable(Constants.MOVIE, movie);
+
+        intent.putExtra(Constants.MOVIE, bundle);
         startActivity(intent);
     }
 }

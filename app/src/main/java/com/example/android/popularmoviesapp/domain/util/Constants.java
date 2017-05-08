@@ -9,6 +9,9 @@ public class Constants {
     public static final String METHOD_POST = "POST";
     public static final String METHOD_GET = "GET";
 
+    public static final String URL_YOUTUBE = "https://www.youtube.com";
+    public static final String URL_PATH_YOUTUBE = "watch";
+    public static final String URL_QUERY_YOUTUBE = "v";
     public static final String MOVIE = "MOVIE";
     public static final String TRAILER = "videos";
     public static final String REVIEWS = "reviews";

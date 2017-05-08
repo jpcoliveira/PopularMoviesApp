@@ -39,54 +39,22 @@ public class MovieModel implements Parcelable {
     }
 
     public MovieModel(Parcel parcel) {
-        id = parcel.readLong();
-        title = parcel.readString();
-        thumbnail = parcel.readString();
-        synopsis = parcel.readString();
-        rating = parcel.readString();
-        dateRelease = parcel.readString();
+        this.id = parcel.readLong();
+        this.title = parcel.readString();
+        this.thumbnail = parcel.readString();
+        this.synopsis = parcel.readString();
+        this.dateRelease = parcel.readString();
+        this.rating = parcel.readString();
+        if (this.trailers == null)
+            this.trailers = new ArrayList<TrailerModel>();
+        parcel.readTypedList(this.trailers, TrailerModel.CREATOR);
 
-        if (trailers == null)
-            trailers = new ArrayList<TrailerModel>();
-        parcel.readTypedList(trailers, TrailerModel.CREATOR);
-
-        if (reviews == null)
-            reviews = new ArrayList<ReviewModel>();
-        parcel.readTypedList(reviews, ReviewModel.CREATOR);
+        if (this.reviews == null)
+            this.reviews = new ArrayList<ReviewModel>();
+        parcel.readTypedList(this.reviews, ReviewModel.CREATOR);
 
     }
 
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getDateRelease() {
-        return dateRelease;
-    }
-
-    public void setDateRelease(String dateRelease) {
-        this.dateRelease = dateRelease;
-    }
-
-    public List<ReviewModel> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<ReviewModel> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<TrailerModel> getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(List<TrailerModel> trailers) {
-        this.trailers = trailers;
-    }
 
     public long getId() {
         return id;
@@ -120,6 +88,37 @@ public class MovieModel implements Parcelable {
         this.synopsis = synopsis;
     }
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getDateRelease() {
+        return dateRelease;
+    }
+
+    public void setDateRelease(String dateRelease) {
+        this.dateRelease = dateRelease;
+    }
+
+    public List<TrailerModel> getTrailers() {
+        return trailers;
+    }
+
+    public void setTrailers(List<TrailerModel> trailers) {
+        this.trailers = trailers;
+    }
+
+    public List<ReviewModel> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewModel> reviews) {
+        this.reviews = reviews;
+    }
 
     @Override
     public String toString() {
@@ -128,10 +127,10 @@ public class MovieModel implements Parcelable {
                 ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", synopsis='" + synopsis + '\'' +
-                ", rating=" + rating +
-//                ", date='" + date + '\'' +
-//                ", trailers=" + trailers +
-//                ", reviews=" + reviews +
+                ", rating='" + rating + '\'' +
+                ", dateRelease='" + dateRelease + '\'' +
+                ", trailers=" + trailers +
+                ", reviews=" + reviews +
                 '}';
     }
 

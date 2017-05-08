@@ -2,12 +2,15 @@ package com.example.android.popularmoviesapp.ui.activities;
 
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +42,8 @@ import java.util.ArrayList;
  * Created by joliveira on 4/28/17.
  */
 
-public class DetailActivity extends AppCompatActivity /*Fragment*/ implements DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener {
+public class DetailActivity extends AppCompatActivity implements
+        DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener {
 
     private DetailPresenter presenter;
     private DetailInteractorImpl interactor;
@@ -91,9 +95,6 @@ public class DetailActivity extends AppCompatActivity /*Fragment*/ implements De
         recyclerViewReviews.setLayoutManager(layoutManager2);
         recyclerViewReviews.setAdapter(reviewAdapter);
 
-        recyclerViewTrailer.setHasFixedSize(true);
-        recyclerViewReviews.setHasFixedSize(true);
-
         btnFavorite = (Button) findViewById(R.id.btn_favorite);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvYear = (TextView) findViewById(R.id.tv_year);
@@ -102,9 +103,9 @@ public class DetailActivity extends AppCompatActivity /*Fragment*/ implements De
         tvOverview = (TextView) findViewById(R.id.tv_overview);
         image = (ImageView) findViewById(R.id.img_movie_detail);
 
-        Bundle bundle = getIntent().getExtras();
-
+        Bundle bundle = getIntent().getBundleExtra(Constants.MOVIE);
         MovieModel movie = bundle.getParcelable(Constants.MOVIE);
+        MovieModel movieeeee = bundle.getParcelable(Constants.MOVIE);
 
         presenter.onCreate(movie);
 
@@ -135,14 +136,15 @@ public class DetailActivity extends AppCompatActivity /*Fragment*/ implements De
             if (!movieModel.getTitle().isEmpty())
                 tvTitle.setText(movieModel.getTitle());
 
-            if (!movieModel.getDateRelease().isEmpty())
-                tvYear.setText(movieModel.getDateRelease());
+            if (!movieModel.getDateRelease().isEmpty()) {
+                tvYear.setText(presenter.formatDate(movieModel.getDateRelease()));
+            }
 
 //            if (movieModel.getTrailers().isEmpty())
             tvTime.setText("50 min");
 
             if (!movieModel.getRating().isEmpty())
-                tvAverage.setText(movieModel.getRating());
+                tvAverage.setText(movieModel.getRating() + "/10");
 
             if (!movieModel.getSynopsis().isEmpty())
                 tvOverview.setText(movieModel.getSynopsis());
@@ -156,11 +158,17 @@ public class DetailActivity extends AppCompatActivity /*Fragment*/ implements De
 
     @Override
     public void onClickListener(TrailerModel trailer) {
-        Toast.makeText(this, trailer.toString(), Toast.LENGTH_LONG).show();
+
+        Uri uri = presenter.buildURLTrailer(trailer.getKey());
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
     }
 
     @Override
     public void onClickListener(ReviewModel review) {
-        Toast.makeText(this, review.toString(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, review.toString(), Toast.LENGTH_LONG).show();
     }
 }
