@@ -60,7 +60,7 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         String strJsonReviews, strJsonTrailers = null;
 
         try {
-            long id = movie.getId();
+            String id = movie.getIdMovie();
 
             urlReviews = new URL(buildUrl(Constants.REVIEWS, id));
             urlTrailers = new URL(buildUrl(Constants.TRAILER, id));
@@ -84,7 +84,7 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         return movie;
     }
 
-    private String buildUrl(String filter, long id) {
+    private String buildUrl(String filter, String id) {
         Uri builder;
 
         String base = Constants.URL_BASE_MOVIES;
@@ -94,9 +94,9 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         paths.add(Constants.URL_PATH_MOVIE_MOVIES);
 
         if (filter.equals(Constants.TRAILER))
-            paths.add(Constants.URL_PATH_TRAILERS.replace("{id}", Long.toString(id)));
+            paths.add(Constants.URL_PATH_TRAILERS.replace("{id}", id));
         else
-            paths.add(Constants.URL_PATH_REVIEWS.replace("{id}", Long.toString(id)));
+            paths.add(Constants.URL_PATH_REVIEWS.replace("{id}", id));
 
         parameters.put(Constants.API_KEY, Constants.API_KEY_VALUE);
 

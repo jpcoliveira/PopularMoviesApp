@@ -92,4 +92,11 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
 
         return uri;
     }
+
+    @Override
+    public boolean saveMovie(MovieModel movie) {
+        boolean retorno = false;
+        retorno = interactor.save(movie);
+        return retorno;
+    }
 }

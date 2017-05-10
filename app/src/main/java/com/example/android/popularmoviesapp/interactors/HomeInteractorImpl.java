@@ -33,6 +33,7 @@ public class HomeInteractorImpl implements HomeInteractor {
                 return Constants.POPULAR;
             case R.id.action_order_top_rated:
                 return Constants.TOP_RATED;
+            ///// TODO: 5/8/17 adicionar busca por favoritos
             default:
                 return Constants.POPULAR;
         }

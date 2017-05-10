@@ -1,34 +1,37 @@
 package com.example.android.popularmoviesapp.model;
 
-import android.content.ClipData;
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.orm.SugarRecord;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by joliveira on 4/28/17.
  */
 
-public class MovieModel implements Parcelable {
+public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
 
-    private long id;
-    private String title;
-    private String thumbnail;
-    private String synopsis;
-    private String rating;
-    private String dateRelease;
-    private List<TrailerModel> trailers;
-    private List<ReviewModel> reviews;
+    public String idMovie;
+    public String title;
+    public String thumbnail;
+    public String synopsis;
+    public String rating;
+    public String dateRelease;
+    public List<TrailerModel> trailers;
+    public List<ReviewModel> reviews;
+    public boolean favorite;
 
 
     public MovieModel() {
+
     }
 
-    public MovieModel(long id, String title, String thumbnail, String synopsis, String rating, String dateRelease, List<TrailerModel> trailers, List<ReviewModel> reviews) {
-        this.id = id;
+    public MovieModel(String id, String title, String thumbnail, String synopsis, String rating, String dateRelease, List<TrailerModel> trailers, List<ReviewModel> reviews, boolean favorite) {
+        this.idMovie = id;
         this.title = title;
         this.thumbnail = thumbnail;
         this.synopsis = synopsis;
@@ -36,10 +39,11 @@ public class MovieModel implements Parcelable {
         this.dateRelease = dateRelease;
         this.trailers = trailers;
         this.reviews = reviews;
+        this.favorite = favorite;
     }
 
     public MovieModel(Parcel parcel) {
-        this.id = parcel.readLong();
+        this.idMovie = parcel.readString();
         this.title = parcel.readString();
         this.thumbnail = parcel.readString();
         this.synopsis = parcel.readString();
@@ -52,16 +56,15 @@ public class MovieModel implements Parcelable {
         if (this.reviews == null)
             this.reviews = new ArrayList<ReviewModel>();
         parcel.readTypedList(this.reviews, ReviewModel.CREATOR);
-
+        this.favorite = parcel.readByte() != 0;
     }
 
-
-    public long getId() {
-        return id;
+    public String getIdMovie() {
+        return idMovie;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdMovie(String idMovie) {
+        this.idMovie = idMovie;
     }
 
     public String getTitle() {
@@ -120,10 +123,18 @@ public class MovieModel implements Parcelable {
         this.reviews = reviews;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "MovieModel{" +
-                "id=" + id +
+                "idMovie=" + idMovie +
                 ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", synopsis='" + synopsis + '\'' +
@@ -141,7 +152,7 @@ public class MovieModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
+        parcel.writeString(idMovie);
         parcel.writeString(title);
         parcel.writeString(thumbnail);
         parcel.writeString(synopsis);
@@ -149,6 +160,7 @@ public class MovieModel implements Parcelable {
         parcel.writeString(rating);
         parcel.writeTypedList(trailers);
         parcel.writeTypedList(reviews);
+        parcel.writeByte((byte) (favorite ? 1 : 0));
     }
 
     public static final Parcelable.Creator<MovieModel> CREATOR = new Creator<MovieModel>() {

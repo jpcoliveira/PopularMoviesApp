@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
  */
 
 public class DetailActivity extends AppCompatActivity implements
-        DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener {
+        DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener, View.OnClickListener {
 
     private DetailPresenter presenter;
     private DetailInteractorImpl interactor;
@@ -54,14 +55,16 @@ public class DetailActivity extends AppCompatActivity implements
     private TrailerAdapter trailerAdapter;
     private ReviewAdapter reviewAdapter;
 
-    private Button btnFavorite;
+    private ImageView btnFavorite;
     private TextView tvTitle;
     private TextView tvYear;
-    private TextView tvTime;
     private TextView tvAverage;
     private TextView tvOverview;
     private ImageView image;
     private LinearLayout container;
+    private LinearLayout containerReviews;
+    private LinearLayout containerTrailers;
+    private MovieModel mMovie;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +81,8 @@ public class DetailActivity extends AppCompatActivity implements
         presenter = new DetailPresenterImpl(this, interactor);
 
         container = (LinearLayout) findViewById(R.id.detail_container);
+        containerReviews = (LinearLayout) findViewById(R.id.container_reviews);
+        containerTrailers = (LinearLayout) findViewById(R.id.container_trailers);
         progress = (ProgressBar) findViewById(R.id.progress_detail);
         textViewErrorNoData = (TextView) findViewById(R.id.error_no_data);
 
@@ -95,17 +100,18 @@ public class DetailActivity extends AppCompatActivity implements
         recyclerViewReviews.setLayoutManager(layoutManager2);
         recyclerViewReviews.setAdapter(reviewAdapter);
 
-        btnFavorite = (Button) findViewById(R.id.btn_favorite);
+        btnFavorite = (ImageView) findViewById(R.id.btn_favorite);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvYear = (TextView) findViewById(R.id.tv_year);
-        tvTime = (TextView) findViewById(R.id.tv_time);
         tvAverage = (TextView) findViewById(R.id.tv_average);
         tvOverview = (TextView) findViewById(R.id.tv_overview);
         image = (ImageView) findViewById(R.id.img_movie_detail);
 
-        Bundle bundle = getIntent().getBundleExtra(Constants.MOVIE);
+        btnFavorite.setOnClickListener(this);
+
+        Bundle bundle = getIntent().getExtras();
         MovieModel movie = bundle.getParcelable(Constants.MOVIE);
-        MovieModel movieeeee = bundle.getParcelable(Constants.MOVIE);
+        mMovie = movie;
 
         presenter.onCreate(movie);
 
@@ -128,10 +134,23 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public void setItemDetail(MovieModel movieModel) {
         if (movieModel != null) {
+
+            mMovie = movieModel;
             textViewErrorNoData.setVisibility(View.GONE);
 
-            trailerAdapter.setAdapter(movieModel.getTrailers());
-            reviewAdapter.setAdapter(movieModel.getReviews());
+            if (movieModel.getTrailers() != null && movieModel.getTrailers().size() > 0) {
+                containerTrailers.setVisibility(View.VISIBLE);
+                trailerAdapter.setAdapter(movieModel.getTrailers());
+            } else {
+                containerTrailers.setVisibility(View.GONE);
+            }
+
+            if (movieModel.getReviews() != null && movieModel.getReviews().size() > 0) {
+                containerReviews.setVisibility(View.VISIBLE);
+                reviewAdapter.setAdapter(movieModel.getReviews());
+            } else {
+                containerReviews.setVisibility(View.GONE);
+            }
 
             if (!movieModel.getTitle().isEmpty())
                 tvTitle.setText(movieModel.getTitle());
@@ -139,9 +158,6 @@ public class DetailActivity extends AppCompatActivity implements
             if (!movieModel.getDateRelease().isEmpty()) {
                 tvYear.setText(presenter.formatDate(movieModel.getDateRelease()));
             }
-
-//            if (movieModel.getTrailers().isEmpty())
-            tvTime.setText("50 min");
 
             if (!movieModel.getRating().isEmpty())
                 tvAverage.setText(movieModel.getRating() + "/10");
@@ -151,6 +167,12 @@ public class DetailActivity extends AppCompatActivity implements
 
             if (!movieModel.getThumbnail().isEmpty())
                 Picasso.with(this).load(movieModel.getThumbnail()).into(image);
+
+            if (movieModel.isFavorite()) {
+                btnFavorite.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent));
+            } else {
+                btnFavorite.setColorFilter(ContextCompat.getColor(this, R.color.colorSilver));
+            }
         } else {
             textViewErrorNoData.setVisibility(View.VISIBLE);
         }
@@ -158,9 +180,7 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onClickListener(TrailerModel trailer) {
-
         Uri uri = presenter.buildURLTrailer(trailer.getKey());
-
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 
         if (intent.resolveActivity(getPackageManager()) != null)
@@ -170,5 +190,25 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public void onClickListener(ReviewModel review) {
 //        Toast.makeText(this, review.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        boolean retornoSave = false;
+
+        if (id == R.id.btn_favorite) {
+            mMovie.setFavorite(true);
+            retornoSave = presenter.saveMovie(mMovie);
+
+            if(retornoSave)
+                presenter.onCreate(mMovie);
+
+//            if (retornoSave) {
+//                Toast.makeText(this, getString(R.string.favorite), Toast.LENGTH_LONG).show();
+//                btnFavorite.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent));
+//            } else
+//                Toast.makeText(this, getString(R.string.error_favorite), Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -108,7 +108,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
                     if (item != null) {
                         String urlbaseThumbnail = Util.buildUri(Constants.URL_BASE_IMG, null, paths).toString();
 
-                        movie.setId(item.getLong("id"));
+                        movie.setIdMovie(item.getString("id"));
                         movie.setTitle(item.getString("original_title"));
                         movie.setThumbnail(urlbaseThumbnail + item.getString("poster_path"));
                         movie.setSynopsis(item.getString("overview"));
