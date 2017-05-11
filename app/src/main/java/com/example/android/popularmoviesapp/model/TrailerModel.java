@@ -3,41 +3,43 @@ package com.example.android.popularmoviesapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by joliveira on 5/3/17.
  */
 
-public class TrailerModel implements Parcelable {
+public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelable {
 
     public TrailerModel() {
 
     }
 
-    public TrailerModel(String id, String key, String name, String site) {
-        this.id = id;
+    public TrailerModel(String idTrailer, String key, String name, String site) {
+        this.idTrailer = idTrailer;
         this.key = key;
         this.name = name;
         this.site = site;
     }
 
     public TrailerModel(Parcel parcel) {
-        this.id = parcel.readString();
+        this.idTrailer = parcel.readString();
         this.key = parcel.readString();
         this.name = parcel.readString();
         this.site = parcel.readString();
     }
 
-    private String id;
+    private String idTrailer;
     private String key;
     private String name;
     private String site;
 
-    public String getId() {
-        return id;
+    public String getIdTrailer() {
+        return idTrailer;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdTrailer(String idTrailer) {
+        this.idTrailer = idTrailer;
     }
 
     public String getKey() {
@@ -67,7 +69,7 @@ public class TrailerModel implements Parcelable {
     @Override
     public String toString() {
         return "TrailerModel{" +
-                "id='" + id + '\'' +
+                "idTrailer='" + idTrailer + '\'' +
                 ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 ", site='" + site + '\'' +
@@ -81,7 +83,7 @@ public class TrailerModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
+        parcel.writeString(idTrailer);
         parcel.writeString(key);
         parcel.writeString(name);
         parcel.writeString(site);

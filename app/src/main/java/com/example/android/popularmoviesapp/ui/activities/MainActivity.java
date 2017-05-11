@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity/*Fragment*/ implements HomeV
 
     @Override
     public void setMovieItem(List<MovieModel> movies) {
-        if (movies != null) {
+        if (movies != null && movies.size() > 0) {
             adapter.setMovies(movies);
             textViewErrorNoData.setVisibility(View.GONE);
         } else {

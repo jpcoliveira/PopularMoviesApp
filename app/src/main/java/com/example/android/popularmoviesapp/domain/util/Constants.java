@@ -15,6 +15,7 @@ public class Constants {
     public static final String MOVIE = "MOVIE";
     public static final String TRAILER = "videos";
     public static final String REVIEWS = "reviews";
+    public static final String FAVORITE = "favorite";
     public static String POPULAR = "popular";
     public static String TOP_RATED = "top_rated";
     public static final String MOVIES = "MOVIES_STATE";

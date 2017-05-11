@@ -24,37 +24,36 @@ public class DetailInteractorImpl implements DetailInteractor {
     @Override
     public void findDetailMovie(OnFinishedListener listener, MovieModel movie) {
 
-        if (!movie.isFavorite()) {
+        MovieModel _movie = getFavoriteMovie(movie);
+
+        if (_movie == null) {
             MovieDetailAsyncTask detailAsyncTask = new MovieDetailAsyncTask(context, listener);
             detailAsyncTask.execute(movie);
         } else {
-            listener.onFinished(getFavoriteMovie(movie));
+            listener.onFinished(_movie);
         }
     }
 
     private MovieModel getFavoriteMovie(MovieModel movie) {
-        return MovieModel.find(MovieModel.class, "idMovie = ?", movie.getIdMovie()).get(0);
+        List<MovieModel> _movie = MovieModel.find(MovieModel.class, "id_movie = ?", movie.getIdMovie());
+        return _movie != null && _movie.size() > 0 ? _movie.get(0) : null;
     }
 
     @Override
-    public boolean save(MovieModel movie) {
-        boolean retorno = false;
+    public MovieModel save(MovieModel movie) {
         try {
-            if (!existsMovie(movie)) {
+            MovieModel _movie = getFavoriteMovie(movie);
+
+            if (_movie == null) {
+                movie.setFavorite(true);
                 movie.save();
             } else {
-                movie.delete();
+                _movie.delete();
+                movie.setFavorite(false);
             }
-            retorno = true;
         } catch (Exception ex) {
-            retorno = false;
+            throw ex;
         }
-        return retorno;
-    }
-
-    private boolean existsMovie(MovieModel movie) {
-        List<MovieModel> list = new ArrayList<>();
-        list = MovieModel.findWithQuery(MovieModel.class, "select * from MovieModel where idMovie = '" + movie.getIdMovie() + "'");
-        return list.size() > 0;
+        return movie;
     }
 }

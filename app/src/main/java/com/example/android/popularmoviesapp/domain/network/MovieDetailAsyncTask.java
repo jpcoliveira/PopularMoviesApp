@@ -124,7 +124,7 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
                     JSONObject item = arrayReviews.getJSONObject(i);
 
                     if (item != null) {
-                        review.setId(item.getString("id"));
+                        review.setIdReview(item.getString("id"));
                         review.setAuthor(item.getString("author"));
                         review.setContent(item.getString("content"));
                         review.setUrl(item.getString("url"));
@@ -158,7 +158,7 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
                     JSONObject item = arrayTrailers.getJSONObject(i);
 
                     if (item != null) {
-                        trailer.setId(item.getString("id"));
+                        trailer.setIdTrailer(item.getString("id"));
                         trailer.setKey(item.getString("key"));
                         trailer.setName(item.getString("name"));
                         trailer.setSite(item.getString("site"));

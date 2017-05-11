@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.util.Util;
 import com.example.android.popularmoviesapp.interfaces.interactors.DetailInteractor;
 import com.example.android.popularmoviesapp.interfaces.presenters.DetailPresenter;
@@ -94,9 +95,21 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
     }
 
     @Override
-    public boolean saveMovie(MovieModel movie) {
-        boolean retorno = false;
-        retorno = interactor.save(movie);
-        return retorno;
+    public MovieModel saveMovie(MovieModel movie) {
+
+        try {
+            movie = interactor.save(movie);
+
+            if (movie.isFavorite()) {
+                detailView.showMessage(detailView.getContextView().getString(R.string.success_save));
+            } else {
+                detailView.showMessage(detailView.getContextView().getString(R.string.success_delete));
+            }
+            return movie;
+
+        } catch (Exception ex) {
+            detailView.showMessage(ex.getMessage());
+            return null;
+        }
     }
 }

@@ -53,7 +53,6 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.OnFinish
 
     @Override
     public void onItemMenuClicked(int menuItemId) {
-        homeInteractor.getFilterMovies(menuItemId);
         homeInteractor.findMovies(this, homeInteractor.getFilterMovies(menuItemId), homeView.getContextHomeView());
     }
 

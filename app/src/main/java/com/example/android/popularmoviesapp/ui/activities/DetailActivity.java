@@ -2,6 +2,7 @@ package com.example.android.popularmoviesapp.ui.activities;
 
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -160,7 +161,7 @@ public class DetailActivity extends AppCompatActivity implements
             }
 
             if (!movieModel.getRating().isEmpty())
-                tvAverage.setText(movieModel.getRating() + "/10");
+                tvAverage.setText(movieModel.getRating() + getString(R.string.max_average));
 
             if (!movieModel.getSynopsis().isEmpty())
                 tvOverview.setText(movieModel.getSynopsis());
@@ -189,26 +190,30 @@ public class DetailActivity extends AppCompatActivity implements
 
     @Override
     public void onClickListener(ReviewModel review) {
-//        Toast.makeText(this, review.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        boolean retornoSave = false;
+
+        MovieModel _movie;
 
         if (id == R.id.btn_favorite) {
-            mMovie.setFavorite(true);
-            retornoSave = presenter.saveMovie(mMovie);
+            _movie = presenter.saveMovie(mMovie);
 
-            if(retornoSave)
-                presenter.onCreate(mMovie);
-
-//            if (retornoSave) {
-//                Toast.makeText(this, getString(R.string.favorite), Toast.LENGTH_LONG).show();
-//                btnFavorite.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent));
-//            } else
-//                Toast.makeText(this, getString(R.string.error_favorite), Toast.LENGTH_LONG).show();
+            if (_movie != null) {
+                presenter.onCreate(_movie);
+            }
         }
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Context getContextView() {
+        return this;
     }
 }

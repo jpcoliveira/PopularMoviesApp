@@ -17,8 +17,16 @@ import java.util.List;
 public class HomeInteractorImpl implements HomeInteractor {
     @Override
     public void findMovies(OnFinishedListener listener, String filter, Context context) {
-        MoviesAsyncTask moviesAsyncTask = new MoviesAsyncTask(context, listener);
-        moviesAsyncTask.execute(filter);
+
+        if (filter.equals(Constants.FAVORITE)) {
+            List<MovieModel> movies = MovieModel.listAll(MovieModel.class);
+            if (movies != null) {
+                listener.onFinished(movies);
+            }
+        } else {
+            MoviesAsyncTask moviesAsyncTask = new MoviesAsyncTask(context, listener);
+            moviesAsyncTask.execute(filter);
+        }
     }
 
     @Override
@@ -33,7 +41,8 @@ public class HomeInteractorImpl implements HomeInteractor {
                 return Constants.POPULAR;
             case R.id.action_order_top_rated:
                 return Constants.TOP_RATED;
-            ///// TODO: 5/8/17 adicionar busca por favoritos
+            case R.id.action_order_favorite:
+                return Constants.FAVORITE;
             default:
                 return Constants.POPULAR;
         }

@@ -13,5 +13,5 @@ public interface DetailPresenter extends BasePresenter, BaseFragmentPresenter {
 
     Uri buildURLTrailer(String key);
 
-    boolean saveMovie(MovieModel movie);
+    MovieModel saveMovie(MovieModel movie);
 }

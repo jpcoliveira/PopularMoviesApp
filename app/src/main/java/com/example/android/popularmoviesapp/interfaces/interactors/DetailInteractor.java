@@ -16,6 +16,6 @@ public interface DetailInteractor {
 
     void findDetailMovie(OnFinishedListener listener, MovieModel movie);
 
-    boolean save(MovieModel movie);
+    MovieModel save(MovieModel movie);
 
 }

@@ -8,4 +8,9 @@
     <string name="trailers">Trailers</string>
     <string name="reviews">Reviews</string>
     <string name="error_favorite">Error favorite</string>
+    <string name="error_save">Favorite error</string>
+    <string name="success_save">Favorite</string>
+    <string name="max_average">/10</string>
+    <string name="action_order_favorite">Favorites</string>
+    <string name="success_delete">Remove from favorites</string>
 </resources>

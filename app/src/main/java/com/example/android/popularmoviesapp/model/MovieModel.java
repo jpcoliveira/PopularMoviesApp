@@ -1,6 +1,5 @@
 package com.example.android.popularmoviesapp.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,15 +14,15 @@ import java.util.List;
 
 public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
 
-    public String idMovie;
-    public String title;
-    public String thumbnail;
-    public String synopsis;
-    public String rating;
-    public String dateRelease;
-    public List<TrailerModel> trailers;
-    public List<ReviewModel> reviews;
-    public boolean favorite;
+    private String idMovie;
+    private String title;
+    private String thumbnail;
+    private String synopsis;
+    private String rating;
+    private String dateRelease;
+    private List<TrailerModel> trailers;
+    private List<ReviewModel> reviews;
+    private boolean favorite;
 
 
     public MovieModel() {

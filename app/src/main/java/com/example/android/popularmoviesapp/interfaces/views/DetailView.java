@@ -1,5 +1,7 @@
 package com.example.android.popularmoviesapp.interfaces.views;
 
+import android.content.Context;
+
 import com.example.android.popularmoviesapp.model.MovieModel;
 
 /**
@@ -12,4 +14,8 @@ public interface DetailView {
     void hideProgress();
 
     void setItemDetail(MovieModel movieModel);
+
+    void showMessage(String msg);
+
+    Context getContextView();
 }
