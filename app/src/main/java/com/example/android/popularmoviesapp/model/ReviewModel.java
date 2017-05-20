@@ -15,16 +15,18 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
     private String author;
     private String content;
     private String url;
+    private String idMovie;
 
     public ReviewModel() {
 
     }
 
-    public ReviewModel(String idReview, String author, String content, String url) {
+    public ReviewModel(String idReview, String author, String content, String url, String idMovie) {
         this.idReview = idReview;
         this.author = author;
         this.content = content;
         this.url = url;
+        this.idMovie = idMovie;
     }
 
     public ReviewModel(Parcel parcel) {
@@ -32,6 +34,15 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
         this.author = parcel.readString();
         this.content = parcel.readString();
         this.url = parcel.readString();
+        this.idMovie = parcel.readString();
+    }
+
+    public String getIdMovie() {
+        return idMovie;
+    }
+
+    public void setIdMovie(String idMovie) {
+        this.idMovie = idMovie;
     }
 
     public String getIdReview() {
@@ -87,6 +98,7 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
         parcel.writeString(author);
         parcel.writeString(content);
         parcel.writeString(url);
+        parcel.writeString(idMovie);
     }
 
     public static final Parcelable.Creator<ReviewModel> CREATOR = new Creator<ReviewModel>() {

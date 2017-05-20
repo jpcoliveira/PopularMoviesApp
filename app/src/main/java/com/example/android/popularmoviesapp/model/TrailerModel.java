@@ -11,15 +11,22 @@ import com.orm.SugarRecord;
 
 public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelable {
 
+    private String idTrailer;
+    private String key;
+    private String name;
+    private String site;
+    private String idMovie;
+
     public TrailerModel() {
 
     }
 
-    public TrailerModel(String idTrailer, String key, String name, String site) {
+    public TrailerModel(String idTrailer, String key, String name, String site, String idMovie) {
         this.idTrailer = idTrailer;
         this.key = key;
         this.name = name;
         this.site = site;
+        this.idMovie = idMovie;
     }
 
     public TrailerModel(Parcel parcel) {
@@ -27,12 +34,16 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
         this.key = parcel.readString();
         this.name = parcel.readString();
         this.site = parcel.readString();
+        this.idMovie = parcel.readString();
     }
 
-    private String idTrailer;
-    private String key;
-    private String name;
-    private String site;
+    public String getIdMovie() {
+        return idMovie;
+    }
+
+    public void setIdMovie(String idMovie) {
+        this.idMovie = idMovie;
+    }
 
     public String getIdTrailer() {
         return idTrailer;
@@ -87,6 +98,7 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
         parcel.writeString(key);
         parcel.writeString(name);
         parcel.writeString(site);
+        parcel.writeString(idMovie);
     }
 
     public static final Parcelable.Creator<TrailerModel> CREATOR = new Creator<TrailerModel>() {

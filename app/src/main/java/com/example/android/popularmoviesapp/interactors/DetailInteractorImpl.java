@@ -38,12 +38,25 @@ public class DetailInteractorImpl implements DetailInteractor {
     }
 
     private MovieModel getFavoriteMovie(MovieModel movie) {
-        List<MovieModel> _movie = MovieModel.find(MovieModel.class, "id_movie = ?", movie.getIdMovie());
-        return _movie != null && _movie.size() > 0 ? _movie.get(0) : null;
+
+        List<MovieModel> _movies = MovieModel.find(MovieModel.class, "id_movie = ?", movie.getIdMovie());
+
+        if (_movies != null && _movies.size() > 0) {
+            List<ReviewModel> reviews = ReviewModel.find(ReviewModel.class, "id_movie = ?", movie.getIdMovie());
+            List<TrailerModel> trailers = TrailerModel.find(TrailerModel.class, "id_movie = ?", movie.getIdMovie());
+            _movies.get(0).setReviews(reviews);
+            _movies.get(0).setTrailers(trailers);
+        }
+
+        return _movies != null && _movies.size() > 0 ? _movies.get(0) : null;
     }
 
     @Override
     public MovieModel save(MovieModel movie) {
+
+        List<ReviewModel> reviews;
+        List<TrailerModel> trailers;
+
         try {
             MovieModel _movie = getFavoriteMovie(movie);
 
@@ -51,26 +64,33 @@ public class DetailInteractorImpl implements DetailInteractor {
                 movie.setId(null);
                 movie.setFavorite(true);
 
-                List<ReviewModel> reviews = movie.getReviews();
-                List<TrailerModel> trailers = movie.getTrailers();
+                reviews = movie.getReviews();
+                trailers = movie.getTrailers();
 
                 for (ReviewModel review : reviews) {
+                    review.setIdMovie(movie.getIdMovie());
                     review.setId(null);
                     review.save();
                 }
 
                 for (TrailerModel trailer : trailers) {
+                    trailer.setIdMovie(movie.getIdMovie());
                     trailer.setId(null);
                     trailer.save();
                 }
-                movie.setTrailers(TrailerModel.find(TrailerModel.class, ""));
-                movie.setReviews(ReviewModel.find(ReviewModel.class, ""));
+
+                reviews = ReviewModel.find(ReviewModel.class, "id_movie = ?", movie.getIdMovie());
+                trailers = TrailerModel.find(TrailerModel.class, "id_movie = ?", movie.getIdMovie());
+
+                movie.setTrailers(trailers);
+                movie.setReviews(reviews);
+
                 movie.save();
 
             } else {
 
-                List<ReviewModel> reviews = _movie.getReviews();
-                List<TrailerModel> trailers = _movie.getTrailers();
+                reviews = _movie.getReviews();
+                trailers = _movie.getTrailers();
 
                 for (ReviewModel review : reviews) {
                     review.delete();
@@ -83,6 +103,7 @@ public class DetailInteractorImpl implements DetailInteractor {
                 _movie.delete();
 
                 movie.setFavorite(false);
+
             }
         } catch (Exception ex) {
             throw ex;
