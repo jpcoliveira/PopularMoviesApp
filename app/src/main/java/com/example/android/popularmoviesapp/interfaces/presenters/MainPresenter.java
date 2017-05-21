@@ -8,5 +8,5 @@ import android.os.Bundle;
 
 public interface MainPresenter extends BasePresenter {
     void onItemMenuClicked(int menuItemId);
-    void onCreate(Bundle savedInstanceState);
+    void findMovies(Bundle savedInstanceState);
 }

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,7 +70,7 @@ public class DetailActivity extends AppCompatActivity implements
         trailerAdapter = new TrailerAdapter(this);
         trailerAdapter.setAdapter(new ArrayList<TrailerModel>());
 
-        reviewAdapter = new ReviewAdapter(this);
+        reviewAdapter = new ReviewAdapter();
         reviewAdapter.setAdapter(new ArrayList<ReviewModel>());
 
         interactor = new DetailInteractorImpl(this);
@@ -111,6 +113,7 @@ public class DetailActivity extends AppCompatActivity implements
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.detail_movie));
     }
 
     @Override
@@ -210,5 +213,17 @@ public class DetailActivity extends AppCompatActivity implements
     @Override
     public Context getContextView() {
         return this;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                setResult(0);
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

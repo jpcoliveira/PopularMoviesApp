@@ -18,7 +18,7 @@ public interface MainInteractor {
 
     void findMovies(OnFinishedListener listener, String filter, Context context);
 
-    void findMovies(OnFinishedListener listener, List<MovieModel> movies);
+    void findMovies(OnFinishedListener listener, String filter, List<MovieModel> movies);
 
     String getFilterMovies(int menuItemId);
 }

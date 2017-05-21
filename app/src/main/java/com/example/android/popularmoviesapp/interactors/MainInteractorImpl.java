@@ -19,19 +19,27 @@ public class MainInteractorImpl implements MainInteractor {
     public void findMovies(OnFinishedListener listener, String filter, Context context) {
 
         if (filter.equals(Constants.FAVORITE)) {
-            List<MovieModel> movies = MovieModel.listAll(MovieModel.class);
-            if (movies != null) {
-                listener.onFinished(movies);
-            }
+            getFavoriteMovies(listener);
         } else {
             MoviesAsyncTask moviesAsyncTask = new MoviesAsyncTask(context, listener);
             moviesAsyncTask.execute(filter);
         }
     }
 
+    void getFavoriteMovies(OnFinishedListener listener) {
+        List<MovieModel> movies = MovieModel.listAll(MovieModel.class);
+        if (movies != null) {
+            listener.onFinished(movies);
+        }
+    }
+
     @Override
-    public void findMovies(OnFinishedListener listener, List<MovieModel> movies) {
-        listener.onFinished(movies);
+    public void findMovies(OnFinishedListener listener, String filter, List<MovieModel> movies) {
+        if (filter == Constants.FAVORITE) {
+            getFavoriteMovies(listener);
+        } else {
+            listener.onFinished(movies);
+        }
     }
 
     @Override

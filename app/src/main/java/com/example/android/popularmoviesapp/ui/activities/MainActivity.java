@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.adapters.MoviesAdapter;
@@ -34,12 +33,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView, MoviesAdapterOnClickHandler {
 
-    private MainPresenter mainPresenter;
-    private MainInteractorImpl homeInteractor;
+    private MainPresenter presenter;
+    private MainInteractorImpl interactor;
     private RecyclerView recyclerView;
     ProgressBar progress;
     MoviesAdapter adapter;
     TextView textViewErrorNoData;
+    private int idMenuActive;
+    private Bundle mSavedInstanceState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements MainView, MoviesA
         setContentView(R.layout.activity_main);
 
         adapter = new MoviesAdapter(this);
-        homeInteractor = new MainInteractorImpl();
-        mainPresenter = new MainPresenterImpl(this, homeInteractor);
+        interactor = new MainInteractorImpl();
+        presenter = new MainPresenterImpl(this, interactor);
         textViewErrorNoData = (TextView) findViewById(R.id.tv_msg_no_data);
         RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_movies);
@@ -56,21 +57,20 @@ public class MainActivity extends AppCompatActivity implements MainView, MoviesA
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         progress = (ProgressBar) findViewById(R.id.progress);
-
-        mainPresenter.onCreate(savedInstanceState);
-
+        mSavedInstanceState = savedInstanceState;
+        presenter.findMovies(savedInstanceState);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mainPresenter.onResume();
+        presenter.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mainPresenter.onDestroy();
+        presenter.onDestroy();
     }
 
     @Override
@@ -110,7 +110,10 @@ public class MainActivity extends AppCompatActivity implements MainView, MoviesA
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mainPresenter.onItemMenuClicked(item.getItemId());
+        int id = item.getItemId();
+        presenter.onItemMenuClicked(id);
+        getSupportActionBar().setTitle(item.getTitle());
+        idMenuActive = id;
         return true;
     }
 
@@ -119,13 +122,23 @@ public class MainActivity extends AppCompatActivity implements MainView, MoviesA
         super.onSaveInstanceState(outState);
         ArrayList<MovieModel> movies = (ArrayList<MovieModel>) adapter.getMovies();
         outState.putParcelableArrayList(Constants.MOVIES, movies);
+        outState.putInt(Constants.MENU, idMenuActive);
+        mSavedInstanceState = outState;
     }
-
 
     @Override
     public void clickItemListener(MovieModel movie) {
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(Constants.MOVIE, movie);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 0) {
+            presenter.findMovies(mSavedInstanceState);
+        }
     }
 }

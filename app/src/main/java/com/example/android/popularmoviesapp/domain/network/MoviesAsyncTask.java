@@ -3,6 +3,7 @@ package com.example.android.popularmoviesapp.domain.network;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;

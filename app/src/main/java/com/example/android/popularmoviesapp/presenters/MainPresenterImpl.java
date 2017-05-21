@@ -47,14 +47,23 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnFinish
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void findMovies(Bundle savedInstanceState) {
         if (mainView != null) {
             mainView.showProgress();
         }
 
         if (savedInstanceState != null) {
             List<MovieModel> movies = savedInstanceState.getParcelableArrayList(Constants.MOVIES);
-            mainInteractor.findMovies(this, movies);
+            int intFilter = savedInstanceState.getInt(Constants.MENU);
+
+            String filter = "";
+
+            if (intFilter > 0) {
+                filter = mainInteractor.getFilterMovies(intFilter);
+            }
+
+            mainInteractor.findMovies(this, filter, movies);
+
         } else {
             //first search by popular
             mainInteractor.findMovies(this, mainInteractor.getFilterMovies(R.id.action_order_popular_movies), mainView.getContextHomeView());
