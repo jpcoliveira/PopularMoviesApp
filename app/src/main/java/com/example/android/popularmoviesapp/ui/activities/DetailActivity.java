@@ -1,22 +1,16 @@
 package com.example.android.popularmoviesapp.ui.activities;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,7 +22,6 @@ import com.example.android.popularmoviesapp.domain.adapters.ReviewAdapter;
 import com.example.android.popularmoviesapp.domain.adapters.TrailerAdapter;
 import com.example.android.popularmoviesapp.domain.util.Constants;
 import com.example.android.popularmoviesapp.interactors.DetailInteractorImpl;
-import com.example.android.popularmoviesapp.interfaces.listeners.ReviewAdapterOnClickListener;
 import com.example.android.popularmoviesapp.interfaces.listeners.TrailerAdapterOnClickListener;
 import com.example.android.popularmoviesapp.interfaces.presenters.DetailPresenter;
 import com.example.android.popularmoviesapp.interfaces.views.DetailView;
@@ -45,7 +38,7 @@ import java.util.ArrayList;
  */
 
 public class DetailActivity extends AppCompatActivity implements
-        DetailView, TrailerAdapterOnClickListener, ReviewAdapterOnClickListener, View.OnClickListener {
+        DetailView, TrailerAdapterOnClickListener, View.OnClickListener {
 
     private DetailPresenter presenter;
     private DetailInteractorImpl interactor;
@@ -114,10 +107,16 @@ public class DetailActivity extends AppCompatActivity implements
         MovieModel movie = bundle.getParcelable(Constants.MOVIE);
         mMovie = movie;
 
-        presenter.onCreate(movie);
+        presenter.findDetailMovie(movie);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     @Override
@@ -189,10 +188,6 @@ public class DetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClickListener(ReviewModel review) {
-    }
-
-    @Override
     public void onClick(View view) {
         int id = view.getId();
 
@@ -202,7 +197,7 @@ public class DetailActivity extends AppCompatActivity implements
             _movie = presenter.saveMovie(mMovie);
 
             if (_movie != null) {
-                presenter.onCreate(_movie);
+                presenter.findDetailMovie(_movie);
             }
         }
     }

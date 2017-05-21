@@ -1,5 +1,7 @@
 package com.example.android.popularmoviesapp.interfaces.views;
 
+import android.content.Context;
+
 import com.example.android.popularmoviesapp.model.MovieModel;
 
 import java.util.List;
@@ -10,5 +12,11 @@ import java.util.List;
 
 public interface MainView {
 
+    void showProgress();
 
+    void hideProgress();
+
+    void setMovieItem(List<MovieModel> movies);
+
+    Context getContextHomeView();
 }

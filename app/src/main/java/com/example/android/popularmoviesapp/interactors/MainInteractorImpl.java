@@ -3,7 +3,7 @@ package com.example.android.popularmoviesapp.interactors;
 import android.content.Context;
 
 import com.example.android.popularmoviesapp.R;
-import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
+import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.domain.network.MoviesAsyncTask;
 import com.example.android.popularmoviesapp.domain.util.Constants;
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by joliveira on 5/1/17.
  */
 
-public class HomeInteractorImpl implements HomeInteractor {
+public class MainInteractorImpl implements MainInteractor {
     @Override
     public void findMovies(OnFinishedListener listener, String filter, Context context) {
 

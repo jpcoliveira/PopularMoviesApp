@@ -21,6 +21,7 @@ import java.util.Map;
  */
 
 public class Util {
+
     /**
      * verify conection with internet
      **/
@@ -64,7 +65,7 @@ public class Util {
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(method);
+            urlConnection.setRequestMethod(method);//GET, POST, DELETE ...
             urlConnection.connect();
 
             // Read the input stream into a String
@@ -90,7 +91,7 @@ public class Util {
             }
             jsonStr = buffer.toString();
         } catch (IOException e) {
-//                Log.e("PlaceholderFragment", "Error ", e);
+            Log.e("callServiceByUrl", "Error ", e);
             jsonStr = null;
         } finally {
             if (urlConnection != null) {
@@ -100,7 +101,7 @@ public class Util {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e("PlaceholderFragment", "Error closing stream", e);
+                    Log.e("callServiceByUrl", "Error closing stream", e);
                 }
             }
         }

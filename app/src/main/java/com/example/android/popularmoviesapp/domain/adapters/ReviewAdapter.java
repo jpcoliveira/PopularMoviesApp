@@ -8,8 +8,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.popularmoviesapp.R;
-import com.example.android.popularmoviesapp.interfaces.listeners.ReviewAdapterOnClickListener;
-import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.model.ReviewModel;
 
 import java.util.List;
@@ -20,11 +18,10 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdapterViewHolder> {
 
-    private ReviewAdapterOnClickListener handler;
     private List<ReviewModel> reviews;
 
-    public ReviewAdapter(ReviewAdapterOnClickListener handler) {
-        this.handler = handler;
+    public ReviewAdapter() {
+
     }
 
     public void setAdapter(List<ReviewModel> reviews) {
@@ -54,7 +51,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdap
      */
     @Override
     public ReviewAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ReviewAdapterViewHolder viewHolder = null;
+        ReviewAdapterViewHolder viewHolder;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_item_list, parent, false);
         viewHolder = new ReviewAdapterViewHolder(view);
 
@@ -98,20 +95,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewAdap
         return reviews != null ? reviews.size() : 0;
     }
 
-    public class ReviewAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ReviewAdapterViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
 
         public ReviewAdapterViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.tv_review);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getPosition();
-            handler.onClickListener(reviews.get(position));
         }
     }
 }

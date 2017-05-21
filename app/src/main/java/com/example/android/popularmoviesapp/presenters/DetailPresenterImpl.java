@@ -37,29 +37,7 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
 
     @Override
     public void onDestroy() {
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onCreateView(@Nullable Bundle savedInstanceState, Bundle arguments) {
-
-    }
-
-    @Override
-    public void onCreate(MovieModel movie) {
-        if (movie != null) {
-
-            if (detailView != null) {
-                detailView.showProgress();
-            }
-
-            interactor.findDetailMovie(this, movie);
-        }
+        detailView = null;
     }
 
     @Override
@@ -110,6 +88,18 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
         } catch (Exception ex) {
             detailView.showMessage(ex.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public void findDetailMovie(MovieModel movie) {
+        if (movie != null) {
+
+            if (detailView != null) {
+                detailView.showProgress();
+            }
+
+            interactor.findDetailMovie(this, movie);
         }
     }
 }

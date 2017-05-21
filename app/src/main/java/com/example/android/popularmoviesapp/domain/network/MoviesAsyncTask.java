@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.example.android.popularmoviesapp.interfaces.interactors.HomeInteractor;
+import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.domain.util.Constants;
 import com.example.android.popularmoviesapp.domain.util.SizeImages;
@@ -26,10 +26,10 @@ import java.util.List;
 
 public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
-    HomeInteractor.OnFinishedListener listener;
+    MainInteractor.OnFinishedListener listener;
     Context mContext;
 
-    public MoviesAsyncTask(Context context, HomeInteractor.OnFinishedListener listener) {
+    public MoviesAsyncTask(Context context, MainInteractor.OnFinishedListener listener) {
         this.listener = listener;
         this.mContext = context;
     }

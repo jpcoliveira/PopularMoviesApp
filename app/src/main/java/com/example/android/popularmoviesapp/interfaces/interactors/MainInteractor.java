@@ -10,7 +10,7 @@ import java.util.List;
  * Created by joliveira on 5/1/17.
  */
 
-public interface HomeInteractor {
+public interface MainInteractor {
 
     interface OnFinishedListener {
         void onFinished(List<MovieModel> movies);

@@ -10,5 +10,5 @@ public enum SizeImages {
     w185,
     w342,
     w500,
-    w780;
+    w780
 }
