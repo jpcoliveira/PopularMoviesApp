@@ -13,7 +13,7 @@ public interface DetailPresenter extends BasePresenter {
 
     Uri buildURLTrailer(String key);
 
-    MovieModel saveMovie(MovieModel movie);
+    void saveMovie(MovieModel movie);
 
     void findDetailMovie(MovieModel movie);
 }

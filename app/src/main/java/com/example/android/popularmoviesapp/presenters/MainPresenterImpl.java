@@ -66,7 +66,9 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnFinish
 
         } else {
             //first search by popular
-            mainInteractor.findMovies(this, mainInteractor.getFilterMovies(R.id.action_order_popular_movies), mainView.getContextHomeView());
+            mainInteractor.findMovies(this,
+                    mainInteractor.getFilterMovies(R.id.action_order_popular_movies),
+                    mainView.getContextHomeView());
         }
     }
 }

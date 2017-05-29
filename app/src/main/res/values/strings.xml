@@ -4,14 +4,11 @@
     <string name="action_order_popular_movies">Popular Movies</string>
     <string name="action_order_top_rated">Top rated</string>
     <string name="overview">Overview</string>
-    <string name="favorite">Favorite</string>
     <string name="trailers">Trailers</string>
     <string name="reviews">Reviews</string>
-    <string name="error_favorite">Error favorite</string>
-    <string name="error_save">Favorite error</string>
     <string name="success_save">Favorite</string>
     <string name="max_average">/10</string>
     <string name="action_order_favorite">Favorites</string>
     <string name="success_delete">Remove from favorites</string>
-    <string name="detail_movie">Detail Movie</string>
+    <string name="detail_movie">Movie Detail</string>
 </resources>

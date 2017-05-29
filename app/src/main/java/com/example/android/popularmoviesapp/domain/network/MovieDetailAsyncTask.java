@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.example.android.popularmoviesapp.BuildConfig;
 import com.example.android.popularmoviesapp.interfaces.interactors.DetailInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.model.ReviewModel;
@@ -98,7 +99,7 @@ public class MovieDetailAsyncTask extends AsyncTask<MovieModel, Void, MovieModel
         else
             paths.add(Constants.URL_PATH_REVIEWS.replace("{id}", id));
 
-        parameters.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        parameters.put(Constants.API_KEY, BuildConfig.API_KEY_VALUE);
 
         builder = Util.buildUri(base, parameters, paths);
 

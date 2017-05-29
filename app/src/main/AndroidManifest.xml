@@ -16,10 +16,18 @@
         android:theme="@style/AppTheme"
         tools:replace="icon">
 
-        <meta-data android:name="DATABASE" android:value="popmovie.db" />
-        <meta-data android:name="VERSION" android:value="2" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.android.popularmoviesapp" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="popmovie.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.example.android.popularmoviesapp" />
 
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
@@ -29,11 +37,13 @@
 
         </activity>
 
-        <activity android:name=".ui.activities.DetailActivity">
+        <activity
+            android:name=".ui.activities.DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

@@ -73,21 +73,21 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
     }
 
     @Override
-    public MovieModel saveMovie(MovieModel movie) {
+    public void saveMovie(MovieModel movie) {
 
         try {
             movie = interactor.save(movie);
 
             if (movie.isFavorite()) {
                 detailView.showMessage(detailView.getContextView().getString(R.string.success_save));
+                detailView.setColorFavorite(movie.isFavorite());
             } else {
                 detailView.showMessage(detailView.getContextView().getString(R.string.success_delete));
+                detailView.setColorFavorite(movie.isFavorite());
             }
-            return movie;
-
         } catch (Exception ex) {
             detailView.showMessage(ex.getMessage());
-            return null;
+            detailView.setColorFavorite(false);
         }
     }
 

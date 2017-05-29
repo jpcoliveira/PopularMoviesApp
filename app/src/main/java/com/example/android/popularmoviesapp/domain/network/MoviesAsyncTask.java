@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.example.android.popularmoviesapp.BuildConfig;
 import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.domain.util.Constants;
@@ -60,7 +61,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         ArrayList<String> paths = new ArrayList<>();
         paths.add(Constants.URL_PATH_3_MOVIES);
         paths.add(Constants.URL_PATH_MOVIE_MOVIES);
-        parameters.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        parameters.put(Constants.API_KEY, BuildConfig.API_KEY_VALUE);
 
         if (filter.equals("popular")) {
             paths.add(Constants.URL_PATH_POPULAR_MOVIES);

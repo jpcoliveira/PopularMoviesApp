@@ -22,9 +22,7 @@ public class Constants {
     public static final String MOVIES = "MOVIES_STATE";
     public static final String URL_PATH_REVIEWS = "{id}/reviews";
     public static final String URL_PATH_TRAILERS = "{id}/videos";
-
     public static String API_KEY = "api_key";
-    public static String API_KEY_VALUE = "cb74f67f0a59368925489b002f16c127";
 
     /******************************************************/
     public static String URL_BASE_IMG = "http://image.tmdb.org/";
