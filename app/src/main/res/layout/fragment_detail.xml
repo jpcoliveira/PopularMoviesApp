@@ -38,7 +38,6 @@
                  android:layout_gravity="center_vertical"
                  android:layout_margin="20dp"
                  android:layout_weight="1"
-                 android:text="Chappie"
                  android:textColor="@color/colorWhite"
                  android:textSize="42sp"
                  android:textStyle="bold" />
@@ -83,7 +82,7 @@
                              android:layout_width="match_parent"
                              android:layout_height="match_parent"
                              android:adjustViewBounds="true"
-                             android:scaleType="centerCrop"
+                             android:scaleType="fitCenter"
                              android:src="@mipmap/ic_launcher" />
 
                      </LinearLayout>
@@ -100,7 +99,6 @@
                              android:layout_width="match_parent"
                              android:layout_height="wrap_content"
                              android:layout_marginTop="10dp"
-                             android:text="2015"
                              android:textSize="26sp"
                              android:textStyle="bold" />
 
@@ -109,7 +107,7 @@
                              android:layout_width="match_parent"
                              android:layout_height="wrap_content"
                              android:layout_marginTop="10dp"
-                             android:text="8.1/10" />
+                             />
 
                      </LinearLayout>
                  </LinearLayout>

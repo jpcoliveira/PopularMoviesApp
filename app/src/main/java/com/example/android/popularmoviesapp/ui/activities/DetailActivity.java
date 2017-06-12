@@ -10,6 +10,7 @@ import com.example.android.popularmoviesapp.Fragments.DetailFragment;
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.util.Constants;
 import com.example.android.popularmoviesapp.interfaces.views.DetailView;
+import com.example.android.popularmoviesapp.model.MovieModel;
 
 /**
  * Created by joliveira on 4/28/17.
@@ -25,9 +26,9 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         if (savedInstanceState == null) {
-
+            MovieModel movie = getIntent().getExtras().getParcelable(Constants.MOVIE);
             Bundle arguments = new Bundle();
-            arguments.putParcelable(Constants.MOVIE, getIntent().getExtras());
+            arguments.putParcelable(Constants.MOVIE, movie);
 
             DetailFragment fragment = new DetailFragment();
             fragment.setArguments(arguments);
@@ -36,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
             detailView.getPackageManagerApp(getPackageManager());
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_detail, fragment)
+                    .add(R.id.detail_container, fragment)
                     .commit();
         }
 

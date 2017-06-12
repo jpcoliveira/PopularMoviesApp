@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<resources>
+    <string name="app_name">Filmes Populares</string>
+    <string name="error_no_data">Não contém dados</string>
+    <string name="action_order_popular_movies">Filmes Populares</string>
+    <string name="action_order_top_rated">Mais votado</string>
+    <string name="overview">Visão geral</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Rever</string>
+    <string name="success_save">Favorito</string>
+    <string name="max_average">/10</string>
+    <string name="action_order_favorite">Favoritos</string>
+    <string name="success_delete">Remover dos favoritos</string>
+    <string name="detail_movie">Detalhe do filme</string>
+</resources>

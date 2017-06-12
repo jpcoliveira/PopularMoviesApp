@@ -2,6 +2,7 @@ package com.example.android.popularmoviesapp.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,11 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     private Bundle mSavedInstanceState;
     Context mContext;
 
+    public interface Callback {
+        public void onItemSelected(MovieModel movie);
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +94,7 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
 
     @Override
     public void clickItemListener(MovieModel movie) {
-        Intent intent = new Intent(mContext, DetailActivity.class);
-        intent.putExtra(Constants.MOVIE, movie);
-        startActivityForResult(intent, 0);
+        ((Callback) getActivity()).onItemSelected(movie);
     }
 
     @Override
@@ -130,11 +134,11 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         mSavedInstanceState = outState;
     }
 
-    @Override
+/*    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu, menu);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,7 +152,6 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == 0) {
             presenter.findMovies(mSavedInstanceState);
         }

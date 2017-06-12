@@ -100,6 +100,8 @@ public class DetailPresenterImpl implements DetailPresenter, DetailInteractor.On
             }
 
             interactor.findDetailMovie(this, movie);
+        } else {
+            detailView.setItemDetail(null);
         }
     }
 }

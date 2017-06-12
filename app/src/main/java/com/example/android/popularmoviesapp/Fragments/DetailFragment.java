@@ -11,9 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -53,7 +52,6 @@ public class DetailFragment extends Fragment implements
     private RecyclerView recyclerViewReviews;
     private TrailerAdapter trailerAdapter;
     private ReviewAdapter reviewAdapter;
-
     private ImageView btnFavorite;
     private TextView tvTitle;
     private TextView tvYear;
@@ -122,12 +120,13 @@ public class DetailFragment extends Fragment implements
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            arguments = arguments.getBundle(Constants.MOVIE);
             movie = arguments.getParcelable(Constants.MOVIE);
             mMovie = movie;
+            presenter.findDetailMovie(movie);
+        } else {
+            setItemDetail(null);
         }
 
-        presenter.findDetailMovie(movie);
 
         return view;
     }
@@ -135,8 +134,6 @@ public class DetailFragment extends Fragment implements
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
-        MovieModel _movie;
 
         if (id == R.id.btn_favorite) {
             presenter.saveMovie(mMovie);
@@ -208,6 +205,7 @@ public class DetailFragment extends Fragment implements
             }
         } else {
             textViewErrorNoData.setVisibility(View.VISIBLE);
+            containerDetail.setVisibility(View.GONE);
         }
     }
 
