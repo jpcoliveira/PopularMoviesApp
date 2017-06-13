@@ -1,4 +1,4 @@
-package com.example.android.popularmoviesapp.Fragments;
+package com.example.android.popularmoviesapp.fragments;
 
 
 import android.content.Context;

@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import com.example.android.popularmoviesapp.Fragments.DetailFragment;
-import com.example.android.popularmoviesapp.Fragments.MainFragment;
+import com.example.android.popularmoviesapp.fragments.DetailFragment;
+import com.example.android.popularmoviesapp.fragments.MainFragment;
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.util.Constants;
 import com.example.android.popularmoviesapp.interfaces.views.DetailView;

@@ -1,8 +1,7 @@
-package com.example.android.popularmoviesapp.Fragments;
+package com.example.android.popularmoviesapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +24,6 @@ import com.example.android.popularmoviesapp.interfaces.presenters.MainPresenter;
 import com.example.android.popularmoviesapp.interfaces.views.MainView;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
-import com.example.android.popularmoviesapp.ui.activities.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
