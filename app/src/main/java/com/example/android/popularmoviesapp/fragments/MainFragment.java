@@ -27,6 +27,7 @@ import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by joliveira on 5/21/17.
@@ -37,15 +38,16 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     private MainPresenter presenter;
     private MainInteractorImpl interactor;
     private RecyclerView recyclerView;
-    ProgressBar progress;
-    MoviesAdapter adapter;
-    TextView textViewErrorNoData;
+    private ProgressBar progress;
+    private MoviesAdapter adapter;
+    private TextView textViewErrorNoData;
     private int idMenuActive;
     private Bundle mSavedInstanceState;
-    Context mContext;
+    private Context mContext;
+    private String titleToolbar;
 
     public interface Callback {
-        public void onItemSelected(MovieModel movie);
+         void onItemSelected(MovieModel movie);
     }
 
 
@@ -62,7 +64,7 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         adapter = new MoviesAdapter(this);
-        interactor = new MainInteractorImpl();
+        interactor = new MainInteractorImpl(getActivity());
         presenter = new MainPresenterImpl(this, interactor);
         textViewErrorNoData = (TextView) view.findViewById(R.id.tv_msg_no_data);
         RecyclerView.LayoutManager manager = new GridLayoutManager(mContext, 2);
@@ -73,6 +75,14 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         progress = (ProgressBar) view.findViewById(R.id.progress);
         mSavedInstanceState = savedInstanceState;
         presenter.findMovies(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(Constants.TITLE_TOOLBAR)) {
+                titleToolbar = savedInstanceState.getString(Constants.TITLE_TOOLBAR);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(titleToolbar);
+            }
+        }
+
         return view;
     }
 
@@ -80,6 +90,10 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     public void onResume() {
         super.onResume();
         presenter.onResume();
+
+        if (mSavedInstanceState != null) {
+            presenter.findMovies(mSavedInstanceState);
+        }
     }
 
     @Override
@@ -126,15 +140,22 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         super.onSaveInstanceState(outState);
         ArrayList<MovieModel> movies = (ArrayList<MovieModel>) adapter.getMovies();
         outState.putParcelableArrayList(Constants.MOVIES, movies);
+        outState.putString(Constants.TITLE_TOOLBAR, ((AppCompatActivity) getActivity()).getSupportActionBar().getTitle().toString());
         outState.putInt(Constants.MENU, idMenuActive);
         mSavedInstanceState = outState;
     }
 
-/*    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu, menu);
-    }*/
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(Constants.MENU))
+                idMenuActive = savedInstanceState.getInt(Constants.MENU);
+            if (savedInstanceState.containsKey(Constants.TITLE_TOOLBAR))
+                titleToolbar = savedInstanceState.getString(Constants.TITLE_TOOLBAR);
+        }
+        mSavedInstanceState = savedInstanceState;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -143,13 +164,5 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(item.getTitle().toString());
         idMenuActive = id;
         return true;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0) {
-            presenter.findMovies(mSavedInstanceState);
-        }
     }
 }

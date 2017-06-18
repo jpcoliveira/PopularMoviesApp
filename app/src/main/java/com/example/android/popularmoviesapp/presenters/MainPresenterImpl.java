@@ -1,5 +1,6 @@
 package com.example.android.popularmoviesapp.presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.android.popularmoviesapp.R;
@@ -65,6 +66,7 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnFinish
             mainInteractor.findMovies(this, filter, movies);
 
         } else {
+
             //first search by popular
             mainInteractor.findMovies(this,
                     mainInteractor.getFilterMovies(R.id.action_order_popular_movies),

@@ -11,8 +11,10 @@ import com.example.android.popularmoviesapp.fragments.DetailFragment;
 import com.example.android.popularmoviesapp.fragments.MainFragment;
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.util.Constants;
+import com.example.android.popularmoviesapp.interactors.MainInteractorImpl;
 import com.example.android.popularmoviesapp.interfaces.views.DetailView;
 import com.example.android.popularmoviesapp.model.MovieModel;
+import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
 
 /**
  * Created by joliveira on 4/28/17.
@@ -84,5 +86,4 @@ public class MainActivity extends ActionBarActivity implements MainFragment.Call
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
 }

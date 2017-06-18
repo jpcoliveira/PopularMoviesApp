@@ -3,14 +3,14 @@ package com.example.android.popularmoviesapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.orm.SugarRecord;
 
 /**
  * Created by joliveira on 5/3/17.
  */
 
-public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelable {
+public class TrailerModel implements Parcelable {
 
+    private long _id;
     private String idTrailer;
     private String key;
     private String name;
@@ -21,7 +21,8 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
 
     }
 
-    public TrailerModel(String idTrailer, String key, String name, String site, String idMovie) {
+    public TrailerModel(long _id, String idTrailer, String key, String name, String site, String idMovie) {
+        this._id = _id;
         this.idTrailer = idTrailer;
         this.key = key;
         this.name = name;
@@ -30,11 +31,20 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
     }
 
     public TrailerModel(Parcel parcel) {
+        this._id = parcel.readLong();
         this.idTrailer = parcel.readString();
         this.key = parcel.readString();
         this.name = parcel.readString();
         this.site = parcel.readString();
         this.idMovie = parcel.readString();
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public String getIdMovie() {
@@ -80,10 +90,12 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
     @Override
     public String toString() {
         return "TrailerModel{" +
-                "idTrailer='" + idTrailer + '\'' +
+                "_id=" + _id +
+                ", idTrailer='" + idTrailer + '\'' +
                 ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 ", site='" + site + '\'' +
+                ", idMovie='" + idMovie + '\'' +
                 '}';
     }
 
@@ -94,6 +106,7 @@ public class TrailerModel extends SugarRecord<TrailerModel> implements Parcelabl
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(_id);
         parcel.writeString(idTrailer);
         parcel.writeString(key);
         parcel.writeString(name);

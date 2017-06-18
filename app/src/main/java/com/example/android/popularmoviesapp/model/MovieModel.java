@@ -3,8 +3,6 @@ package com.example.android.popularmoviesapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.orm.SugarRecord;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +10,9 @@ import java.util.List;
  * Created by joliveira on 4/28/17.
  */
 
-public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
+public class MovieModel implements Parcelable {
 
+    private long _id;
     private String idMovie;
     private String title;
     private String thumbnail;
@@ -29,7 +28,8 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
 
     }
 
-    public MovieModel(String id, String title, String thumbnail, String synopsis, String rating, String dateRelease, List<TrailerModel> trailers, List<ReviewModel> reviews, boolean favorite) {
+    public MovieModel(long _id, String id, String title, String thumbnail, String synopsis, String rating, String dateRelease, List<TrailerModel> trailers, List<ReviewModel> reviews, boolean favorite) {
+        this._id = _id;
         this.idMovie = id;
         this.title = title;
         this.thumbnail = thumbnail;
@@ -42,6 +42,7 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
     }
 
     public MovieModel(Parcel parcel) {
+        this._id = parcel.readLong();
         this.idMovie = parcel.readString();
         this.title = parcel.readString();
         this.thumbnail = parcel.readString();
@@ -56,6 +57,14 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
             this.reviews = new ArrayList<ReviewModel>();
         parcel.readTypedList(this.reviews, ReviewModel.CREATOR);
         this.favorite = parcel.readByte() != 0;
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public String getIdMovie() {
@@ -133,7 +142,8 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
     @Override
     public String toString() {
         return "MovieModel{" +
-                "idMovie=" + idMovie +
+                "_id=" + _id +
+                ", idMovie='" + idMovie + '\'' +
                 ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", synopsis='" + synopsis + '\'' +
@@ -141,6 +151,7 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
                 ", dateRelease='" + dateRelease + '\'' +
                 ", trailers=" + trailers +
                 ", reviews=" + reviews +
+                ", favorite=" + favorite +
                 '}';
     }
 
@@ -151,6 +162,7 @@ public class MovieModel extends SugarRecord<MovieModel> implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(_id);
         parcel.writeString(idMovie);
         parcel.writeString(title);
         parcel.writeString(thumbnail);

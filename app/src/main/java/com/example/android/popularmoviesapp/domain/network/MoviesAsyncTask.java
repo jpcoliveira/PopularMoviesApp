@@ -3,13 +3,11 @@ package com.example.android.popularmoviesapp.domain.network;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.android.popularmoviesapp.BuildConfig;
 import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.domain.util.Constants;
-import com.example.android.popularmoviesapp.domain.util.SizeImages;
 import com.example.android.popularmoviesapp.domain.util.Util;
 
 import org.json.JSONArray;
@@ -30,6 +28,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
 
     MainInteractor.OnFinishedListener listener;
     Context mContext;
+    private final String W185 = "w185";
 
     public MoviesAsyncTask(Context context, MainInteractor.OnFinishedListener listener) {
         this.listener = listener;
@@ -93,7 +92,7 @@ public class MoviesAsyncTask extends AsyncTask<String, Void, List<MovieModel>> {
         ArrayList<String> paths = new ArrayList<>();
         paths.add(Constants.URL_PATH_T_IMAGE);
         paths.add(Constants.URL_PATH_P_IMAGE);
-        paths.add(SizeImages.w185.name());
+        paths.add(W185);
 
         try {
             JSONObject jsonObjectMovies = new JSONObject(strJson);

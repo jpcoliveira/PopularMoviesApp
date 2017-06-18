@@ -5,205 +5,205 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-     <ProgressBar
-         android:id="@+id/progress_detail"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/progress_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-     <TextView
-         android:id="@+id/error_no_data"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/error_no_data"
-         android:visibility="gone" />
+    <TextView
+        android:id="@+id/error_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_no_data"
+        android:visibility="gone" />
 
-     <LinearLayout
-         android:id="@+id/linear_detail_container"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical">
-
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:background="@color/colorPrimaryDark"
-             android:orientation="horizontal">
-
-             <TextView
-                 android:id="@+id/tv_title"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center_vertical"
-                 android:layout_margin="20dp"
-                 android:layout_weight="1"
-                 android:textColor="@color/colorWhite"
-                 android:textSize="42sp"
-                 android:textStyle="bold" />
+    <LinearLayout
+        android:id="@+id/linear_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
-             <ImageView
-                 android:id="@+id/btn_favorite"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginRight="10dp"
-                 android:layout_marginTop="10dp"
-                 android:layout_weight="10"
-                 android:src="@drawable/ic_star_white_36dp"
-                 android:tint="@color/colorSilver" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal">
 
-         </LinearLayout>
-
-         <ScrollView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
-
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical">
-
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layout_margin="10dp"
-                     android:orientation="horizontal">
-
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="150dp"
-                         android:layout_margin="5dp"
-                         android:layout_weight="1">
-
-                         <ImageView
-                             android:id="@+id/img_movie_detail"
-                             android:layout_width="match_parent"
-                             android:layout_height="match_parent"
-                             android:adjustViewBounds="true"
-                             android:scaleType="fitCenter"
-                             android:src="@mipmap/ic_launcher" />
-
-                     </LinearLayout>
-
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"
-                         android:layout_weight="1"
-                         android:orientation="vertical">
-
-                         <TextView
-                             android:id="@+id/tv_year"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="10dp"
-                             android:textSize="26sp"
-                             android:textStyle="bold" />
-
-                         <TextView
-                             android:id="@+id/tv_average"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="10dp"
-                             />
-
-                     </LinearLayout>
-                 </LinearLayout>
-
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical">
-
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:text="@string/overview"
-                         android:textSize="18sp"
-                         android:textStyle="bold" />
-
-                     <TextView
-                         android:id="@+id/tv_overview"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="15dp" />
-
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height="2dp"
-                         android:layout_marginTop="10dp"
-                         android:background="@color/colorBlack" />
-
-                 </LinearLayout>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/margin_title_detail"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/size_title_detail"
+                android:textStyle="bold" />
 
 
-                 <LinearLayout
-                     android:id="@+id/container_reviews"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical">
+            <ImageView
+                android:id="@+id/btn_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_weight="10"
+                android:src="@drawable/ic_star_white_36dp"
+                android:tint="@color/colorSilver" />
 
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:text="@string/reviews"
-                         android:textSize="18sp"
-                         android:textStyle="bold" />
+        </LinearLayout>
 
-                     <android.support.v7.widget.RecyclerView
-                         android:id="@+id/recycle_reviews"
-                         android:layout_width="match_parent"
-                         android:layout_height="150dp"
-                         android:layout_marginTop="15dp">
-
-                     </android.support.v7.widget.RecyclerView>
-
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height="2dp"
-                         android:layout_marginTop="10dp"
-                         android:background="@color/colorBlack" />
-                 </LinearLayout>
-
-                 <LinearLayout
-                     android:id="@+id/container_trailers"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical">
-
-                     <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:text="@string/trailers"
-                         android:textSize="18sp"
-                         android:textStyle="bold" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-                     <android.support.v7.widget.RecyclerView
-                         android:id="@+id/recycle_trailers"
-                         android:layout_width="match_parent"
-                         android:layout_height="150dp"
-                         android:layout_marginTop="15dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                     </android.support.v7.widget.RecyclerView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/default_margin"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height="2dp"
-                         android:layout_marginTop="10dp"
-                         android:background="@color/colorBlack" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_container"
+                        android:layout_margin="@dimen/min_margin"
+                        android:layout_weight="1">
 
-                 </LinearLayout>
+                        <ImageView
+                            android:id="@+id/img_movie_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@mipmap/ic_launcher" />
 
-             </LinearLayout>
+                    </LinearLayout>
 
-         </ScrollView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-     </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_year"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:textSize="@dimen/year_font_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_average"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/default_margin" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/overview"
+                        android:textSize="@dimen/default_font_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/height_container" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_view"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:background="@color/colorBlack" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/container_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reviews"
+                        android:textSize="@dimen/default_font_size"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle_reviews"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_container"
+                        android:layout_marginTop="@dimen/default_margin">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_view"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:background="@color/colorBlack" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_trailers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/default_margin"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trailers"
+                        android:textSize="@dimen/default_font_size"
+                        android:textStyle="bold" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycle_trailers"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_container"
+                        android:layout_marginTop="@dimen/default_margin">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_view"
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:background="@color/colorBlack" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>

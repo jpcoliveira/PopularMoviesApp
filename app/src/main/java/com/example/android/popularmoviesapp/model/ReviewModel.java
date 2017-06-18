@@ -3,14 +3,14 @@ package com.example.android.popularmoviesapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.orm.SugarRecord;
 
 /**
  * Created by joliveira on 5/3/17.
  */
 
-public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable {
+public class ReviewModel implements Parcelable {
 
+    private long _id;
     private String idReview;
     private String author;
     private String content;
@@ -21,7 +21,8 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
 
     }
 
-    public ReviewModel(String idReview, String author, String content, String url, String idMovie) {
+    public ReviewModel(long _id, String idReview, String author, String content, String url, String idMovie) {
+        this._id = _id;
         this.idReview = idReview;
         this.author = author;
         this.content = content;
@@ -30,11 +31,20 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
     }
 
     public ReviewModel(Parcel parcel) {
+        this._id = parcel.readLong();
         this.idReview = parcel.readString();
         this.author = parcel.readString();
         this.content = parcel.readString();
         this.url = parcel.readString();
         this.idMovie = parcel.readString();
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public String getIdMovie() {
@@ -80,10 +90,12 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
     @Override
     public String toString() {
         return "ReviewModel{" +
-                "idReview=" + idReview +
+                "_id=" + _id +
+                ", idReview='" + idReview + '\'' +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 ", url='" + url + '\'' +
+                ", idMovie='" + idMovie + '\'' +
                 '}';
     }
 
@@ -94,6 +106,7 @@ public class ReviewModel extends SugarRecord<ReviewModel> implements Parcelable 
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(_id);
         parcel.writeString(idReview);
         parcel.writeString(author);
         parcel.writeString(content);

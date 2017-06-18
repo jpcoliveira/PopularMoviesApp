@@ -127,7 +127,6 @@ public class DetailFragment extends Fragment implements
             setItemDetail(null);
         }
 
-
         return view;
     }
 
