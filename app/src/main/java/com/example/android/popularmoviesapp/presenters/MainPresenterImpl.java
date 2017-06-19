@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.example.android.popularmoviesapp.R;
+import com.example.android.popularmoviesapp.domain.util.Util;
 import com.example.android.popularmoviesapp.interfaces.interactors.MainInteractor;
 import com.example.android.popularmoviesapp.interfaces.presenters.MainPresenter;
 import com.example.android.popularmoviesapp.interfaces.views.MainView;
@@ -44,7 +45,18 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnFinish
 
     @Override
     public void onItemMenuClicked(int menuItemId) {
-        mainInteractor.findMovies(this, mainInteractor.getFilterMovies(menuItemId), mainView.getContextHomeView());
+        if (mainView != null) {
+            mainView.showProgress();
+        }
+
+        String filter = mainInteractor.getFilterMovies(menuItemId);
+
+        if (Util.isOnline(mainView.getContextHomeView()) || filter.equals(Constants.FAVORITE)) {
+            mainInteractor.findMovies(this, filter, mainView.getContextHomeView());
+        } else {
+            mainView.hideProgress();
+            mainView.showMessageNoInternet();
+        }
     }
 
     @Override
@@ -63,14 +75,24 @@ public class MainPresenterImpl implements MainPresenter, MainInteractor.OnFinish
                 filter = mainInteractor.getFilterMovies(intFilter);
             }
 
-            mainInteractor.findMovies(this, filter, movies);
+            if (Util.isOnline(mainView.getContextHomeView()) || filter.equals(Constants.FAVORITE)) {
+                mainInteractor.findMovies(this, filter, movies);
+            } else {
+                mainView.hideProgress();
+                mainView.showMessageNoInternet();
+            }
 
         } else {
-
-            //first search by popular
-            mainInteractor.findMovies(this,
-                    mainInteractor.getFilterMovies(R.id.action_order_popular_movies),
-                    mainView.getContextHomeView());
+            if (Util.isOnline(mainView.getContextHomeView())) {
+                //first search by popular
+                mainInteractor.findMovies(this,
+                        mainInteractor.getFilterMovies(R.id.action_order_popular_movies),
+                        mainView.getContextHomeView());
+            } else {
+                mainView.hideProgress();
+                mainView.showMessageNoInternet();
+            }
         }
+
     }
 }

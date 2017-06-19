@@ -19,4 +19,6 @@ public interface MainView {
     void setMovieItem(List<MovieModel> movies);
 
     Context getContextHomeView();
+
+    void showMessageNoInternet();
 }

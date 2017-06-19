@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.adapters.MoviesAdapter;
 import com.example.android.popularmoviesapp.domain.util.Constants;
+import com.example.android.popularmoviesapp.domain.util.Util;
 import com.example.android.popularmoviesapp.interactors.MainInteractorImpl;
 import com.example.android.popularmoviesapp.interfaces.listeners.MoviesAdapterOnClickHandler;
 import com.example.android.popularmoviesapp.interfaces.presenters.MainPresenter;
@@ -27,13 +30,14 @@ import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TooManyListenersException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by joliveira on 5/21/17.
  */
 
-public class MainFragment extends Fragment implements MainView, MoviesAdapterOnClickHandler {
+public class MainFragment extends Fragment implements MainView, MoviesAdapterOnClickHandler, View.OnClickListener {
 
     private MainPresenter presenter;
     private MainInteractorImpl interactor;
@@ -45,11 +49,12 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     private Bundle mSavedInstanceState;
     private Context mContext;
     private String titleToolbar;
+    private TextView textViewNoInternetConnection;
+    private Button btnRetryConnection;
 
     public interface Callback {
-         void onItemSelected(MovieModel movie);
+        void onItemSelected(MovieModel movie);
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +72,9 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         interactor = new MainInteractorImpl(getActivity());
         presenter = new MainPresenterImpl(this, interactor);
         textViewErrorNoData = (TextView) view.findViewById(R.id.tv_msg_no_data);
+        textViewNoInternetConnection = (TextView) view.findViewById(R.id.tv_msg_no_internet);
+        btnRetryConnection = (Button) view.findViewById(R.id.btn_retry_connection);
+        btnRetryConnection.setOnClickListener(this);
         RecyclerView.LayoutManager manager = new GridLayoutManager(mContext, 2);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_movies);
         recyclerView.setHasFixedSize(true);
@@ -86,14 +94,25 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
         return view;
     }
 
+    public void reloadFavorites() {
+        if (idMenuActive == R.id.action_order_favorite) {
+            presenter.onItemMenuClicked(idMenuActive);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.btn_retry_connection) {
+            onResume();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         presenter.onResume();
-
-        if (mSavedInstanceState != null) {
-            presenter.findMovies(mSavedInstanceState);
-        }
+        presenter.onItemMenuClicked(idMenuActive);
     }
 
     @Override
@@ -104,7 +123,11 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
 
     @Override
     public void clickItemListener(MovieModel movie) {
-        ((Callback) getActivity()).onItemSelected(movie);
+        if ((Util.isOnline(getActivity())) || ((!Util.isOnline(getActivity())) && idMenuActive == R.id.action_order_favorite)) {
+            ((Callback) getActivity()).onItemSelected(movie);
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -122,17 +145,29 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     @Override
     public void setMovieItem(List<MovieModel> movies) {
         if (movies != null && movies.size() > 0) {
-            adapter.setMovies(movies);
             textViewErrorNoData.setVisibility(View.GONE);
+            textViewNoInternetConnection.setVisibility(View.GONE);
+            btnRetryConnection.setVisibility(View.GONE);
+            adapter.setMovies(movies);
         } else {
             adapter.setMovies(null);
             textViewErrorNoData.setVisibility(View.VISIBLE);
+            textViewNoInternetConnection.setVisibility(View.GONE);
+            btnRetryConnection.setVisibility(View.GONE);
         }
     }
 
     @Override
     public Context getContextHomeView() {
         return mContext;
+    }
+
+    @Override
+    public void showMessageNoInternet() {
+        adapter.setMovies(null);
+        textViewNoInternetConnection.setVisibility(View.VISIBLE);
+        btnRetryConnection.setVisibility(View.VISIBLE);
+        textViewErrorNoData.setVisibility(View.GONE);
     }
 
     @Override
@@ -160,9 +195,9 @@ public class MainFragment extends Fragment implements MainView, MoviesAdapterOnC
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        idMenuActive = id;
         presenter.onItemMenuClicked(id);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(item.getTitle().toString());
-        idMenuActive = id;
         return true;
     }
 }

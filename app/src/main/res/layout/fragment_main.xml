@@ -19,11 +19,27 @@
         android:textSize="@dimen/no_contains_data_font_size"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/tv_msg_no_internet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_internet_connection"
+        android:textSize="@dimen/no_contains_data_font_size"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_retry_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/retry_connection"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_movies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

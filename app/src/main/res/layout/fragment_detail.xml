@@ -129,7 +129,7 @@
                         android:id="@+id/tv_overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/height_container" />
+                        android:layout_marginTop="@dimen/default_margin" />
 
                     <View
                         android:layout_width="match_parent"

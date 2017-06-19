@@ -65,6 +65,11 @@ public class DetailFragment extends Fragment implements
     private Context mContext;
     private PackageManager packageManager;
 
+    public interface Callback {
+        void reloadFavorites();
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +141,7 @@ public class DetailFragment extends Fragment implements
 
         if (id == R.id.btn_favorite) {
             presenter.saveMovie(mMovie);
+            ((Callback) getActivity()).reloadFavorites();
         }
     }
 

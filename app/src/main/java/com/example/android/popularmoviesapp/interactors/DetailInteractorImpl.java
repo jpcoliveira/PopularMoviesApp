@@ -73,10 +73,12 @@ public class DetailInteractorImpl implements DetailInteractor {
                     cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_DATERELEASE)),
                     trailers,
                     reviews,
-                    cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_FAVORITE)) == 1 ? true : false
+                    cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_FAVORITE)) == 1
 
             );
         }
+        cursor.close();
+
         return _movie;
     }
 
@@ -162,6 +164,7 @@ public class DetailInteractorImpl implements DetailInteractor {
                     )
             );
         }
+        cursor.close();
 
         return trailers;
     }
@@ -188,6 +191,7 @@ public class DetailInteractorImpl implements DetailInteractor {
                     )
             );
         }
+        cursor.close();
 
         return reviews;
     }

@@ -13,13 +13,14 @@ import com.example.android.popularmoviesapp.R;
 import com.example.android.popularmoviesapp.domain.util.Constants;
 import com.example.android.popularmoviesapp.interactors.MainInteractorImpl;
 import com.example.android.popularmoviesapp.interfaces.views.DetailView;
+import com.example.android.popularmoviesapp.interfaces.views.MainView;
 import com.example.android.popularmoviesapp.model.MovieModel;
 import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
 
 /**
  * Created by joliveira on 4/28/17.
  */
-public class MainActivity extends ActionBarActivity implements MainFragment.Callback {
+public class MainActivity extends ActionBarActivity implements MainFragment.Callback, DetailFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DETAIL_FRAG";
     private static final String MAINFRAGMENT_TAG = "MAIN_FRAG";
@@ -85,5 +86,13 @@ public class MainActivity extends ActionBarActivity implements MainFragment.Call
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public void reloadFavorites() {
+        if (mTwoPane) {
+            MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentByTag(MAINFRAGMENT_TAG);
+            mainFragment.reloadFavorites();
+        }
     }
 }

@@ -60,11 +60,12 @@ public class MainInteractorImpl implements MainInteractor {
                             cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_DATERELEASE)),
                             null,
                             null,
-                            cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_FAVORITE)) == 1 ? true : false
+                            cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_FAVORITE)) == 1
                     )
             );
         }
 
+        cursor.close();
 
         listener.onFinished(movies);
 

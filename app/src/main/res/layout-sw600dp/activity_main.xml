@@ -9,6 +9,7 @@
     <fragment
         android:id="@+id/fragment_main"
         android:name="com.example.android.popularmoviesapp.fragments.MainFragment"
+        android:tag="@string/main_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"></fragment>
