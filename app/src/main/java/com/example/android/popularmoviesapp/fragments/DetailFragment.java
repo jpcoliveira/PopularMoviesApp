@@ -69,7 +69,6 @@ public class DetailFragment extends Fragment implements
         void reloadFavorites();
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

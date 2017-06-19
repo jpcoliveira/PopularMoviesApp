@@ -18,7 +18,7 @@ import com.example.android.popularmoviesapp.model.MovieModel;
  * Created by joliveira on 4/28/17.
  */
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements DetailFragment.Callback {
 
     private DetailView detailView;
 
@@ -56,5 +56,10 @@ public class DetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void reloadFavorites() {
+
     }
 }
