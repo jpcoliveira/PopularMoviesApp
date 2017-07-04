@@ -43,7 +43,7 @@
         </activity>
 
         <provider
-            android:name=".domain.database.MovieProvider"
+            android:name=".data.source.database.MovieProvider"
             android:authorities="com.example.android.popularmoviesapp"
             android:exported="false" />
 

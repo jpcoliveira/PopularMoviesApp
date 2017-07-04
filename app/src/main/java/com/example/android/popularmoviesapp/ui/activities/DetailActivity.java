@@ -1,18 +1,16 @@
 package com.example.android.popularmoviesapp.ui.activities;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import com.example.android.popularmoviesapp.fragments.DetailFragment;
+import com.example.android.popularmoviesapp.ui.fragments.DetailFragment;
 import com.example.android.popularmoviesapp.R;
-import com.example.android.popularmoviesapp.domain.util.Constants;
-import com.example.android.popularmoviesapp.interfaces.views.DetailView;
-import com.example.android.popularmoviesapp.model.MovieModel;
+import com.example.android.popularmoviesapp.util.Constants;
+import com.example.android.popularmoviesapp.ui.views.DetailView;
+import com.example.android.popularmoviesapp.data.model.MovieModel;
 
 /**
  * Created by joliveira on 4/28/17.

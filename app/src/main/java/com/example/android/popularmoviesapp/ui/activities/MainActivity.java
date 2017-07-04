@@ -7,15 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
-import com.example.android.popularmoviesapp.fragments.DetailFragment;
-import com.example.android.popularmoviesapp.fragments.MainFragment;
 import com.example.android.popularmoviesapp.R;
-import com.example.android.popularmoviesapp.domain.util.Constants;
-import com.example.android.popularmoviesapp.interactors.MainInteractorImpl;
-import com.example.android.popularmoviesapp.interfaces.views.DetailView;
-import com.example.android.popularmoviesapp.interfaces.views.MainView;
-import com.example.android.popularmoviesapp.model.MovieModel;
-import com.example.android.popularmoviesapp.presenters.MainPresenterImpl;
+import com.example.android.popularmoviesapp.data.model.MovieModel;
+import com.example.android.popularmoviesapp.ui.views.DetailView;
+import com.example.android.popularmoviesapp.ui.fragments.DetailFragment;
+import com.example.android.popularmoviesapp.ui.fragments.MainFragment;
+import com.example.android.popularmoviesapp.util.Constants;
 
 /**
  * Created by joliveira on 4/28/17.
