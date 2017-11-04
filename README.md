@@ -1,2 +1,4 @@
 # PopularMoviesApp
-Insira sua API_KEY no build config
+This is a basic example mvp project of popular movies in android
+
+For requests in API use API_KEY in build config
